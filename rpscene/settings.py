@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # own apps
     'scenes',
     'characters',
+    'items',
 
     # 3rd Party
 ]

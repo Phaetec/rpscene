@@ -263,3 +263,4 @@ fabric.properties
 
 ### App specific ignores
 characters/migrations/*
+items/migrations/*

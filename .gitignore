@@ -127,6 +127,8 @@ dmypy.json
 .pyre/
 
 ### PyCharm ###
+# We dont like .idea lol
+.idea/*
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
@@ -258,3 +260,6 @@ fabric.properties
 .venv/
 
 # End of https://www.gitignore.io/api/python,django,pycharm
+
+### App specific ignores
+characters/migrations/*

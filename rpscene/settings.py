@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # own apps
     'scenes',
+    'characters',
+
+    # 3rd Party
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+askdja
+{% block content %}
+    <ul>
+    {% for char in chars %}
+        <li>{{ char.name }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

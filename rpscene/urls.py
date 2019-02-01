@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import scenes
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('scenes/', include('scenes.urls')),
+    path('characters/', include('characters.urls'), name='characters'),
 ]

@@ -24,13 +24,13 @@ from items.models import Armor
 
 def convert_type(typename):
     if typename == "LA":
-        return "LIGHT_ARMOR"
+        return "Light Armor"
     elif typename == "MA":
-        return "MEDIUM_ARMOR"
+        return "Medium Armor"
     elif typename == "HA":
-        return "HEAVY_ARMOR"
+        return "Heavy Armor"
     elif typename == "S":
-        return "SHIELD"
+        return "Shield"
     else:
         raise TypeError("Item Type not recognized")
 
@@ -46,7 +46,7 @@ def is_magic(item):
 
 def parse_strength_requirement(item):
     strength_var = item.find("strength")
-    if not strength_var:
+    if strength_var is None:
         return 0
     try:
         requirement = int(strength_var.text)
@@ -93,6 +93,7 @@ def parse_text(texts):
 
 
 def create_armor(item):
+    # TODO Forgot to take modifier into account
     name = item.find("name").text
     type_str = convert_type(item.find("type").text)
     magic = is_magic(item)

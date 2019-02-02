@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compendium version="5" auto_indent="NO">
+    <item>
+        <name>Adamantine Plate Armor</name>
+        <type>HA</type>
+        <magic>1</magic>
+        <detail>uncommon</detail>
+        <weight>65</weight>
+        <text>This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you're
+            wearing it, any critical hit against you becomes a normal hit.
+        </text>
+        <text/>
+        <text>Source: Dungeon Master's Guide p. 150</text>
+        <ac>18</ac>
+        <strength>15</strength>
+        <stealth>1</stealth>
+    </item>
+    <item>
+        <name>Armor of Vulnerability (Bludgeoning)</name>
+        <type>HA</type>
+        <magic>1</magic>
+        <detail>rare, cursed (requires attunement)</detail>
+        <weight>65</weight>
+        <text>While wearing this armor, you have resistance to bludgeoning damage.</text>
+        <text></text>
+        <text>Curse: This armor is cursed, a fact that is revealed only when an identify spell is cast on the armor or
+            you attune to it. Attuning to the armor curses you until you are targeted by the remove curse spell or
+            similar magic; removing the armor fails to end the curse. While cursed you have vulnerability to piercing
+            and slashing damage.
+        </text>
+        <text/>
+        <text>Source: Dungeon Master's Guide p. 152</text>
+        <ac>18</ac>
+        <strength>15</strength>
+        <stealth>1</stealth>
+    </item>
+    <item>
+        <name>Cast-Off Leather Armor</name>
+        <type>LA</type>
+        <magic>1</magic>
+        <detail>common</detail>
+        <weight>10</weight>
+        <text>You can doff this armor as an action.</text>
+        <text/>
+        <text>Source: Xanathar's Guide to Everything, p. 136</text>
+        <ac>12</ac>
+        <strength></strength>
+        <stealth></stealth>
+    </item>
+    <item>
+        <name>Adamantine Breastplate</name>
+        <type>MA</type>
+        <magic>1</magic>
+        <detail>uncommon</detail>
+        <weight>20</weight>
+        <text>This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you're
+            wearing it, any critical hit against you becomes a normal hit.
+        </text>
+        <text/>
+        <text>Source: Dungeon Master's Guide p. 150</text>
+        <ac>14</ac>
+        <strength></strength>
+        <stealth></stealth>
+    </item>
+    <item>
+        <name>Animated Shield</name>
+        <type>S</type>
+        <magic>1</magic>
+        <detail>very rare (requires attunement)</detail>
+        <weight>6</weight>
+        <text>While holding this shield, you can speak its command word as a bonus action to cause it to animate. The
+            shield leaps into the air and hovers in your space to protect you as if you were wielding it, leaving your
+            hands free. The shield remains animated for 1 minute, until you use a bonus action to end this effect, or
+            until you are incapacitated or die, at which point the shield falls to the ground or into your hand if you
+            have one free.
+        </text>
+        <text/>
+        <text>Source: Dungeon Master's Guide p. 183</text>
+        <ac>2</ac>
+        <strength></strength>
+        <stealth></stealth>
+    </item>
+    <item>
+        <name>Shield +2</name>
+        <type>S</type>
+        <magic>1</magic>
+        <detail>rare</detail>
+        <weight>6</weight>
+        <text>While holding this shield, you have a +2 bonus to AC. This bonus is in addition to the shield's normal
+            bonus to AC.
+        </text>
+        <text/>
+        <text>Source: Dungeon Master's Guide p. 200</text>
+        <modifier category="bonus">ac +2</modifier>
+        <ac>2</ac>
+        <strength></strength>
+        <stealth></stealth>
+    </item>
+</compendium>

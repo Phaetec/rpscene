@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for item in armory %}
+        <div>
+            <p>Name: {{ item.name }}</p>
+            <p>
+                <small>
+                    {{ item.get_rarity_display }}
+                    {% if item.cursed %}, cursed{% endif %}
+                    {% if item.requires_attunement %}(requires attunement){% endif %}
+                </small>
+            </p>
+            <p>AC: {{ item.ac }}</p>
+        </div>
+        {% if not forloop.last %}
+            <hr/>{% endif %}
+    {% endfor %}
+{% endblock %}

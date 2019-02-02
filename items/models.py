@@ -22,8 +22,13 @@ class Item(models.Model):
     cursed = models.BooleanField("Cursed?", null=False, default=False)
     requires_attunement = models.BooleanField("Requires Attunement?", null=False, default=False)
 
+    def __str__(self):
+        return self.name
+
 
 # Here we define more specific Item classes. Since there are quite a few its more elegant than to have a ton of special
 # fields on the core Item class.
 class Armor(Item):
     ac = models.IntegerField("Armor Class", null=False, default=13)
+    stealth_disadvantage = models.BooleanField("Stealth Disadvanatage?", null=False, default=False)
+    strength_requirement = models.IntegerField("Strength Requirement", null=True)

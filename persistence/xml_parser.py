@@ -1,4 +1,8 @@
 from defusedxml.ElementTree import parse
+from django.core.exceptions import ObjectDoesNotExist
+
+from items.errors import ItemAlreadyExists
+from items.models import Armor
 
 
 # NOTES:
@@ -16,6 +20,8 @@ from defusedxml.ElementTree import parse
 # stealth: Wenn 1, dann hat man disadvantage für stealth mit der Ausrüstung
 # strength: Benötigt mindestens den Inhalt des Tags als Stärke um Getragen zu werden
 # ac: Die AC, die die Ausrüstung einem gibt
+
+
 def convert_type(typename):
     if typename == "LA":
         return "LIGHT_ARMOR"
@@ -24,7 +30,7 @@ def convert_type(typename):
     elif typename == "HA":
         return "HEAVY_ARMOR"
     elif typename == "S":
-        return "Shield"
+        return "SHIELD"
     else:
         raise TypeError("Item Type not recognized")
 
@@ -49,17 +55,63 @@ def parse_strength_requirement(item):
         return 0
 
 
+def parse_details(detail):
+    if detail is None:
+        return False, False, "COMMON"
+    detailstring = detail.text
+    attunement = False
+    cursed = False
+    if "(requires attunement)" in detailstring:
+        attunement = True
+    if "cursed" in detailstring:
+        cursed = True
+    if "artifact" in detailstring:
+        return attunement, cursed, "ARTIFACT"
+    if "legendary" in detailstring:
+        return attunement, cursed, "LEGENDARY"
+    # Never put the rare case before very rare. Same with uncommon and common
+    if "very rare" in detailstring:
+        return attunement, cursed, "VERY_RARE"
+    if "rare" in detailstring:
+        return attunement, cursed, "RARE"
+    if "uncommon" in detailstring:
+        return attunement, cursed, "UNCOMMON"
+    if "common" in detailstring:
+        return attunement, cursed, "COMMON"
+
+    return attunement, cursed, "NO_INFO"
+
+
+def parse_text(texts):
+    description = ""
+    for text in texts:
+        if text.text is None:
+            description += "\n"
+        else:
+            description += text.text + "\n"
+    return description
+
+
 def create_armor(item):
     name = item.find("name").text
-    type = convert_type(item.find("type").text)
+    type_str = convert_type(item.find("type").text)
     magic = is_magic(item)
-    # TODO parse detail attribute
+    attunement, cursed, rarity = parse_details(item.find("detail"))
     weight = float(item.find("weight").text)
     ac = int(item.find("ac").text)
-    # TODO parse text
+    description = parse_text(item.findall("text"))
     stealth_disadvantage = True if item.find("stealth").text == "1" else False
     strength_requirement = parse_strength_requirement(item)
-    print(name, type, magic, weight, ac, stealth_disadvantage, strength_requirement)
+
+    try:
+        Armor.objects.get(name=name)
+        # Object already exists, raise an Error
+        raise ItemAlreadyExists
+    except ObjectDoesNotExist:
+        new_armor = Armor(name=name, type=type_str, magic=magic, requires_attunement=attunement, cursed=cursed,
+                          rarity=rarity, description=description, weight=weight, ac=ac,
+                          stealth_disadvantage=stealth_disadvantage, strength_requirement=strength_requirement)
+        new_armor.save()
 
 
 def parse_and_store_item(item):
@@ -69,22 +121,18 @@ def parse_and_store_item(item):
         create_armor(item)
 
 
-def parse_entities(file_path):
-    tree = parse("CorePlusUAWithModern.xml")
+def parse_entities(file_path="CorePlusUAWithModern.xml"):
+    tree = parse(file_path)
     root = tree.getroot()
     for child in root.findall('item'):
-        parse_and_store_item(child)
+        try:
+            parse_and_store_item(child)
+        except ItemAlreadyExists:
+            print("Small dirty place for testing")
 
-        if child.findall('ac'):
-            print("Type: " + str(child.findall('type')[0].text))
-            print("-----")
         # for attrs in child:
         #    if attrs.tag not in ['weight', 'type', 'text', 'name', 'magic', 'detail', 'roll', 'range', 'dmg1',
         #                         'dmgType', 'property', 'dmg2', 'modifier', 'value', 'stealth', 'strength', 'ac']:
         #        print(attrs.tag)
         #        print(attrs.attrib)
         #       print('---')
-
-
-
-parse_entities(True)

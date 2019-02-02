@@ -21,3 +21,9 @@ class Item(models.Model):
     rarity = models.CharField("Rarity", max_length=100, null=False, choices=RARITIES, default="NO_INFO")
     cursed = models.BooleanField("Cursed?", null=False, default=False)
     requires_attunement = models.BooleanField("Requires Attunement?", null=False, default=False)
+
+
+# Here we define more specific Item classes. Since there are quite a few its more elegant than to have a ton of special
+# fields on the core Item class.
+class Armor(Item):
+    ac = models.IntegerField("Armor Class", null=False, default=13)

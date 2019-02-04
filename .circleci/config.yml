@@ -6,7 +6,16 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - restore_cache:
+          key: deps-flake8
       - run: pip install flake8
+      - save_cache:
+          key: deps-flake8
+          paths:
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run: flake8 .
 
   test:

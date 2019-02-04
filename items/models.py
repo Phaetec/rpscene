@@ -32,3 +32,23 @@ class Armor(Item):
     ac = models.IntegerField("Armor Class", null=False, default=13)
     stealth_disadvantage = models.BooleanField("Stealth Disadvanatage?", null=False, default=False)
     strength_requirement = models.IntegerField("Strength Requirement", null=True)
+
+
+# Auxiliary models, needed for e.g. OneToMany relations
+class BonusModifier(models.Model):
+    belongs_to = models.ForeignKey("Item", null=False, on_delete=models.CASCADE, related_name="bonus_mod")
+    modifier = models.IntegerField("Modifier", null=False, default=0)
+    applied_to = models.CharField("Applied to", null=False, default="ac", max_length=100)
+
+
+class AbilityModifier(models.Model):
+    belongs_to = models.ForeignKey("Item", null=False, on_delete=models.CASCADE, related_name="ability_mod")
+    modifier = models.IntegerField("Modifier", null=False, default=0)
+    ability = models.CharField("Ability", null=False, default="Strength", max_length=100)
+
+
+class SkillModifier(models.Model):
+    belongs_to = models.ForeignKey("Item", null=False, on_delete=models.CASCADE, related_name="skill_mod")
+    # modifier is a char, because there are some strange things like double prof and stuff. Subject to rework
+    modifier = models.CharField("Modifier", null=False, default="+0", max_length=100)
+    skill = models.CharField("Skill", null=False, default="Initiative", max_length=100)

@@ -1,8 +1,10 @@
+import re
 from defusedxml.ElementTree import parse
 from django.core.exceptions import ObjectDoesNotExist
 
 from items.errors import ItemAlreadyExists
-from items.models import Armor
+from items.models import Armor, BonusModifier
+from .errors import XMLModifierCategoryNotRecognized
 
 
 # NOTES:
@@ -33,6 +35,27 @@ def convert_type(typename):
         return "Shield"
     else:
         raise TypeError("Item Type not recognized")
+
+
+def parse_modifiers(modifiers, item):
+    """Parse modifiers and create corresponding objects."""
+    for mod in modifiers:
+        category = mod.attrib['category']
+        text = mod.text
+        if category == "bonus":
+            applied_to, modifier = re.split("\+", text)
+            mod = BonusModifier(belongs_to=item,
+                                modifier=int(modifier.strip()),
+                                applied_to=applied_to.strip())
+            mod.save()
+        elif category == "skills":
+            # TODO
+            pass
+        elif category == "ability score":
+            # TODO
+            pass
+        else:
+            raise XMLModifierCategoryNotRecognized("Modifier not recognized")
 
 
 def is_magic(item):
@@ -107,12 +130,13 @@ def create_armor(item):
     try:
         Armor.objects.get(name=name)
         # Object already exists, raise an Error
-        raise ItemAlreadyExists
+        raise ItemAlreadyExists("An Item with this name already exists.")
     except ObjectDoesNotExist:
         new_armor = Armor(name=name, type=type_str, magic=magic, requires_attunement=attunement, cursed=cursed,
                           rarity=rarity, description=description, weight=weight, ac=ac,
                           stealth_disadvantage=stealth_disadvantage, strength_requirement=strength_requirement)
         new_armor.save()
+        parse_modifiers(item.findall("modifier"), new_armor)
 
 
 def parse_and_store_item(item):

@@ -1,0 +1,51 @@
+version: 2 # use CircleCI 2.0
+jobs:
+  # flake8:
+  #   working_directory: ~/rpscene
+  #   docker:
+  #     - image: circleci/python:3.7
+  #   steps:
+  #     - checkout
+  #     - run: sudo chown -R circleci:circleci /usr/local/bin
+  #     - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+  #     - restore_cache:
+  #         key: deps-flake8
+  #     - run: pip install flake8
+  #     - save_cache:
+  #         key: deps-flake8
+  #         paths:
+  #           - "/usr/local/bin"
+  #           - "/usr/local/lib/python3.7/site-packages"
+  #     - run: flake8 .
+
+  test:
+    working_directory: ~/rpscene
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - restore_cache:
+          key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run: pipenv install
+      - save_cache:
+          key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
+      - run:
+          command: |
+            pipenv run python manage.py makemigrations
+            pipenv run python manage.py migrate
+            pipenv run python manage.py test
+
+workflows:
+  version: 2
+  flake8_and_test:
+    jobs:
+      # - flake8
+      - test

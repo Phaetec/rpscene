@@ -16,7 +16,8 @@ jobs:
           paths:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
-      - run: flake8 . || true
+      - run: flake8 .
+      - run: exit 0 # Flake8 gives us hints and should not lead to failing tests
 
   test:
     working_directory: ~/rpscene

@@ -1,0 +1,2 @@
+class XMLModifierCategoryNotRecognized(Exception):
+    pass

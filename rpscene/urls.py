@@ -21,6 +21,7 @@ from rpscene import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('scenes/', include('scenes.urls', namespace='scenes')),
     path('characters/', include('characters.urls', namespace='characters')),
     path('items/', include('items.urls', namespace='items')),

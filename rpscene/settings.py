@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,8 +43,10 @@ INSTALLED_APPS = [
     'characters',
     'items',
     'persistence',
+    'user_manager',
 
     # 3rd Party
+    'bulma',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rpscene.urls'
+
+AUTH_USER_MODEL = 'user_manager.User'
 
 TEMPLATES = [
     {

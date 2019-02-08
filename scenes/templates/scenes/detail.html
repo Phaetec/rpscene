@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content">
+        <h2 class="has-text-centered">{{ scene.name }}</h2>
+        <div class="columns">
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="has-text-centered">Description</h3>
+                    <p>{{ scene.description }}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="has-text-centered">Characters</h3>
+                    <p>{{ scene.characters }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="has-text-centered">Location</h3>
+                    <p>{{ scene.place }}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="has-text-centered">Rewards</h3>
+                    <p>{{ scene.rewards }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="has-text-centered">Encounters</h3>
+                    <p>{{ scene.encounters }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

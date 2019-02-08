@@ -5,7 +5,7 @@
         <h1>All Scenes</h1>
         <ul>
             {% for scene in scenes %}
-                <li>{{ scene.name }}</li>
+                <li><a href="{% url "scenes:detail" scene.id %}">{{ scene.name }}</a></li>
             {% endfor %}
         </ul>
     </div>

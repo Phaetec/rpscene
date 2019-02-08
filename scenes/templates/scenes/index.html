@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Blabla du huan
+    <h1>All Scenes</h1>
+    <ul>
+        {% for scene in scenes %}
+            <li>{{ scene.name }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -265,3 +265,4 @@ fabric.properties
 characters/migrations/*
 items/migrations/*
 scenes/migrations/*
+static/node_modules/*

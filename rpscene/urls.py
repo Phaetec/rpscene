@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rpscene import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
     path('scenes/', include('scenes.urls')),
     path('characters/', include('characters.urls'), name='characters'),
     path('items/', include('items.urls'), name='items'),

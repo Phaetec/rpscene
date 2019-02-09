@@ -60,16 +60,27 @@
         </div>
 
         <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="{% url 'login' %}">
-                        Log in
-                    </a>
+            {% if not user.is_authenticated %}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="{% url 'login' %}">
+                            Log in
+                        </a>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="navbar-item">
+                    <p class="navbar-item"><strong>{{ user.username }}</strong></p>
+                    <div class="buttons">
+                        <a class="button is-light" href="{% url 'logout' %}">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </nav>

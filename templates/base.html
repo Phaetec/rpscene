@@ -63,7 +63,7 @@
             {% if not user.is_authenticated %}
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary">
+                        <a class="button is-primary" href="{% url 'accounts:signup' %}">
                             <strong>Sign up</strong>
                         </a>
                         <a class="button is-light" href="{% url 'login' %}">

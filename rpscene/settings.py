@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "index"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,8 +44,10 @@ INSTALLED_APPS = [
     'characters',
     'items',
     'persistence',
+    'user_manager',
 
     # 3rd Party
+    'bulma',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +61,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rpscene.urls'
+
+AUTH_USER_MODEL = 'user_manager.User'
 
 TEMPLATES = [
     {
@@ -115,6 +122,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

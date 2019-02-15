@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="columns content">
+        <div class="column">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="button is-primary">Create Scene</button>
+            </form>
+            {{ form.media }}
+        </div>
+    </div>
+{% endblock %}

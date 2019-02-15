@@ -73,8 +73,11 @@
                 </div>
             {% else %}
                 <div class="navbar-item">
-                    <p class="navbar-item"><strong>{{ user.username }}</strong></p>
+                    <p class="navbar-item"><strong>Hi, {{ user.username }}!</strong></p>
                     <div class="buttons">
+                        <a class="button is-light" href="{% url 'password_change' %}">
+                            Change password
+                        </a>
                         <a class="button is-light" href="{% url 'logout' %}">
                             Log out
                         </a>

@@ -2,22 +2,24 @@
 {% load bulma_tags %}
 
 {% block content %}
-    <div class="content" style="max-width:800px;margin: auto;">
-        <h2>Log In</h2>
-        {% if form.errors %}
-            <p>The username or E-Mail and password that you entered do not match. Please acknowledge that the username
-                is case-sensitive.</p>
-        {% endif %}
-        <form method="post" action=".">
-            {% csrf_token %}
-            {{ form|bulma_horizontal }}
-            <input type="hidden" name="next" value="{{ next }}"/>
-            <input type="submit" value="Login" class="button is-primary" style="width:50%;font-size: 1.3em;"/>
-        </form>
-        <p>
-            <br>
-            <a href="#"> Register</a>
-        </p>
-
+    <div class="columns content" style="max-width:800px;margin: auto;">
+        <div class="column">
+            <h2>Log In</h2>
+            {% if form.errors %}
+                <p>The username or E-Mail and password that you entered do not match. Please acknowledge that the
+                    username
+                    is case-sensitive.</p>
+            {% endif %}
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <input type="submit" value="Login" class="button is-primary"/>
+            </form>
+            <p>
+                <br>
+                <a href="#"> Register</a>
+            </p>
+        </div>
     </div>
 {% endblock %}

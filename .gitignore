@@ -350,11 +350,9 @@ fabric.properties
 .idea/*
 
 ### App specific ignores
-characters/migrations/*
-items/migrations/*
-scenes/migrations/*
+*/migrations/*
+!*/migrations/__init__.py
 static/node_modules/*
 static/css/.sass-cache/*
 static/css/*.css
 static/css/*.css.map
-user_manager/migrations/*

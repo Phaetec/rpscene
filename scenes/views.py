@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from scenes.forms import SceneForm
 from scenes.models import Scene
@@ -22,8 +22,16 @@ def detail(request, scene_id):
 
 @login_required()
 def create_scene(request):
-    if request.method == "POST":
-        pass  # TODO finish
+    scene_form = None
 
-    scene_form = SceneForm()
+    if request.method == "POST":
+        scene_form = SceneForm(request.POST)
+        if scene_form.is_valid():
+            scene = scene_form.save(commit=False)
+            scene.owner = request.user
+            scene.save()
+
+    if scene_form is None:
+        scene_form = SceneForm()
+
     return render(request, "scenes/create.html", {'form': scene_form})

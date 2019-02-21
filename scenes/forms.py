@@ -1,7 +1,13 @@
-from django import forms
+from django.forms import ModelForm
 from markdownx.fields import MarkdownxFormField
 
+from scenes.models import Scene
 
-class SceneForm(forms.Form):
+
+class SceneForm(ModelForm):
     description = MarkdownxFormField()
     place = MarkdownxFormField()
+
+    class Meta:
+        model = Scene
+        fields = ("name", "description", "place", "characters", "rewards", "encounters")

@@ -38,18 +38,18 @@
         {% endfor %}
 
         {% if is_paginated %}
-            <nav class="level">
-                <div class="level-left">
-                    <a href="?page=1" class="button level-item">First</a>
-                    <a href="?page={{ page_obj.previous_page_number }}" class="button level-item">Previous</a>
-                </div>
-                <div class="level-item">
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a href="?page=1" class="button pagination-previous">First</a>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="button pagination-previous">Previous</a>
+                {% endif %}
+                <div class="pagination-list">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </div>
-                <div class="level-right">
-                    <a href="?page={{ page_obj.next_page_number }}" class="button level-item is-disabled">Next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}" class="button level-item">Last</a>
-                </div>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="button pagination-next">Next</a>
+                {% endif %}
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="button pagination-next">Last</a>
             </nav>
         {% endif %}
     </div>

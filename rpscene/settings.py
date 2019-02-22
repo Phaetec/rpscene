@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import os
 from datetime import datetime
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -147,3 +148,13 @@ STATICFILES_DIRS = [
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 MARKDOWNX_UPLOAD_MAX_SIZE = 2 * 1024 * 1024
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
+
+# Messages Framework settings
+# Map Messages Framework tags to Bulma classes
+MESSAGE_TAGS = {
+    messages.DEBUG: 'is-info',
+    messages.INFO: 'is-info',
+    messages.SUCCESS: 'is-success',
+    messages.WARNING: 'is-warning',
+    messages.ERROR: 'is-danger',
+}

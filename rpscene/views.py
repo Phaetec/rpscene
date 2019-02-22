@@ -6,5 +6,5 @@ def index(request):
     return render(request, 'base.html', {})
 
 
-def no_access(request):
+def no_access(request, exception=None):
     return render(request, 'errors/no_access.html', {})

@@ -18,7 +18,7 @@
         {% for playlist in playlists %}
             <div class="box">
                 <p class="title">{{ playlist.name }}</p>
-                <p class="subtitle">On {{ playlist.service }}</p>
+                <p class="subtitle">On {{ playlist.pretty_service }}</p>
                 <nav class="level">
                     <div class="level-left">
                         <a href="{% url "scenes:playlist.detail" playlist.id %}"

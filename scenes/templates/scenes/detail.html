@@ -18,7 +18,16 @@
                 </a>
             </div>
         </nav>
+        <p><strong>Current Location:</strong> {{ scene.place }}</p>
         <div class="columns">
+            {% if scene.sound_effects %}
+                <div class="column">
+                    <div class="content has-background-light has-text-centered">
+                        <h3 class="subtitle has-text-centered">Sound Effects:</h3>
+                        <p>{{ scene.sound_effects.play_html|safe }}</p>
+                    </div>
+                </div>
+            {% endif %}
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Description</h3>
@@ -34,14 +43,13 @@
                     <p>{{ scene.characters|markdownify }}</p>
                 </div>
             </div>
-
+          
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Location</h3>
                     <p>{{ scene.place }}</p>
                 </div>
             </div>
-
         </div>
 
         <div class="columns">

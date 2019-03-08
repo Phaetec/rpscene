@@ -11,6 +11,7 @@ defusedxml = "*"
 django-bulma = "*"
 django-markdownx = "*"
 django-markdownify = "*"
+django-searchable-select = "*"
 
 [requires]
 python_version = "3.7"

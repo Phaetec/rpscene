@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bulma',
     'markdownx',
     'markdownify',
+    'searchableselect',
 ]
 
 MIDDLEWARE = [

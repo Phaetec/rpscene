@@ -10,6 +10,11 @@ $ pipenv install
 $ npm install --prefix static
 ```
 
+To generate CSS files from Sass, run
+```
+$ sass --update static/css:static/css
+```
+
 To run the Django server within the virtual environment, run
 ```
 $ pipenv run python manage.py runserver

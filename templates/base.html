@@ -9,9 +9,37 @@
     <link rel="stylesheet" href="{% static "css/rpscene.css" %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script type="text/javascript" src="{% static "node_modules/jquery/dist/jquery.js" %}"></script>
     <title>RP Scene - Direct your game</title>
 </head>
 <body>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="notification has-text-centered {{ message.tags }}">
+                <button class="delete"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <script type="text/javascript">
+        $(document).on('click', '.notification > button.delete', function () {
+            $(this).parent().slideUp().fadeOut({
+                duration: "fast", queue: false, complete: function () {
+                    $(this).remove();
+                }
+            });
+            return false;
+        });
+        $(document).ready(function () {
+            $('.messages > .notification').delay(10000).fadeOut({
+                duration: "fast", complete: function () {
+                    $(this).remove();
+                }
+            });
+        });
+    </script>
+{% endif %}
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="#">

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import os
 from datetime import datetime
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,6 +145,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+# Messages Framework settings
+# Map Messages Framework tags to Bulma classes
+MESSAGE_TAGS = {
+    messages.DEBUG: 'is-info',
+    messages.INFO: 'is-info',
+    messages.SUCCESS: 'is-success',
+    messages.WARNING: 'is-warning',
+    messages.ERROR: 'is-danger',
+}
+
 ############# Custom Plugin Settings
 
 # MarkdownX Settings
@@ -173,3 +184,5 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'br',
     'hr',
 ]
+
+

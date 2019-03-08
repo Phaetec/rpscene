@@ -25,27 +25,23 @@
                     <p>{{ scene.description|markdownify }}</p>
                 </div>
             </div>
+        </div>
+
+        <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Characters</h3>
                     <p>{{ scene.characters|markdownify }}</p>
                 </div>
             </div>
-        </div>
 
-        <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Location</h3>
                     <p>{{ scene.place|markdownify }}</p>
                 </div>
             </div>
-            <div class="column">
-                <div class="content has-background-light">
-                    <h3 class="subtitle has-text-centered">Rewards</h3>
-                    <p>{{ scene.rewards|markdownify }}</p>
-                </div>
-            </div>
+
         </div>
 
         <div class="columns">
@@ -53,6 +49,13 @@
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Encounters</h3>
                     <p>{{ scene.encounters|markdownify }}</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="subtitle has-text-centered">Rewards</h3>
+                    <p>{{ scene.rewards|markdownify }}</p>
                 </div>
             </div>
         </div>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="notification">
+        <form method="post">{% csrf_token %}
+            Please confirm that you want to delete the location
+            <p class="has-text-centered">{{ location.name }}</p>
+            <a href="{% url "locations:index" %}" class="button">Cancel</a>
+            <button type="submit" class="button is-danger">Delete</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_media %}
+    {{ form.media }}
+{% endblock %}

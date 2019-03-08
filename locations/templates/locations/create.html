@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="columns content">
+        <div class="column">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <button type="submit" class="button is-primary">Create Location</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_media %}
+    {{ form.media }}
+{% endblock %}

@@ -1,8 +1,10 @@
 from django.conf import settings
 from django.forms import ModelForm, Select
+from django.urls import reverse_lazy
 from markdownx.fields import MarkdownxFormField
 
-from scenes.models import Scene, PlaylistItem
+from scenes.models import PlaylistItem, Scene
+from utils.widgets.select_with_create import SelectWithCreate
 
 
 class SceneForm(ModelForm):
@@ -14,6 +16,12 @@ class SceneForm(ModelForm):
     class Meta:
         model = Scene
         fields = ("name", "place", "description", "characters", "encounters", "rewards", "sound_effects")
+
+        create_url = reverse_lazy("locations:create")
+        update_url = reverse_lazy("locations:as-options")
+        widgets = {
+            'place': SelectWithCreate(create_url, update_url)
+        }
 
 
 class PlaylistItemForm(ModelForm):

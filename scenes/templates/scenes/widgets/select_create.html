@@ -1,0 +1,33 @@
+{% include "django/forms/widgets/select.html" %}
+<a class="button" id="location-add" href=""><span class="icon is-small"><i class="fas fa-plus"></i></span>
+</a>
+
+<script type="text/javascript">
+    $("#location-add").click(function () {
+        $("#location-add-modal .modal-content").load("{{ create_url }}", function (response, status, xhr) {
+            $("#location-add-modal").addClass("is-active");
+
+            $("#location-add-modal .modal-content form").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: "{{ create_url }}",
+                    data: $(this).serialize(),
+                    success: function (xhr, ajaxOptions, thrownError) {
+                        $("#location-add-modal").toggleClass("is-active");
+                        $('#location-add').prev().load("{{ update_url }}")
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // handle response errors here
+                    }
+                });
+            });
+        });
+
+        return false;
+    });
+
+    $("#location-add-modal .modal-close").click(function () {
+        $("#location-add-modal").toggleClass("is-active");
+    });
+</script>

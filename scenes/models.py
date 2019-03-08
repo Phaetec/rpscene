@@ -7,7 +7,7 @@ from user_manager.models import User
 # TODO are due to change to more complex classes
 class Scene(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    name = models.CharField("Name", max_length=200, null=False, default="Faboulous Scene")
+    name = models.CharField("Name", max_length=200, null=False, default="Fabulous Scene")
     description = models.TextField("Description", max_length=20000, null=True, blank=True)
     place = models.CharField("Place", max_length=200, null=True, blank=True)
     characters = models.TextField("Characters", max_length=20000, null=True, blank=True)
@@ -16,3 +16,6 @@ class Scene(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["id"]

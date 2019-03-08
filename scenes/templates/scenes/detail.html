@@ -1,19 +1,28 @@
 {% extends "base.html" %}
+{% load markdownify %}
 
 {% block content %}
     <div class="content">
-        <h2 class="has-text-centered">{{ scene.name }}</h2>
+        <nav class="level">
+            <div class="level-left">
+                <a href="{% url "scenes:edit" scene.id %}" class="level-item button">
+                    <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                    <span>Edit</span>
+                </a>
+            </div>
+            <h1 class="level-item title has-text-centered">{{ scene.name }}</h1>
+            <div class="level-right">
+                <a href="{% url "scenes:delete" scene.id %}" class="level-item button is-danger is-outlined">
+                    <span>Delete</span>
+                    <span class="icon is-small"><i class="fas fa-times"></i></span>
+                </a>
+            </div>
+        </nav>
         <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
-                    <h3 class="has-text-centered">Description</h3>
-                    <p>{{ scene.description }}</p>
-                </div>
-            </div>
-            <div class="column">
-                <div class="content has-background-light">
-                    <h3 class="has-text-centered">Characters</h3>
-                    <p>{{ scene.characters }}</p>
+                    <h3 class="subtitle has-text-centered">Description</h3>
+                    <p>{{ scene.description|markdownify }}</p>
                 </div>
             </div>
         </div>
@@ -21,26 +30,36 @@
         <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
-                    <h3 class="has-text-centered">Location</h3>
-                    <p>{{ scene.place }}</p>
+                    <h3 class="subtitle has-text-centered">Characters</h3>
+                    <p>{{ scene.characters|markdownify }}</p>
                 </div>
             </div>
+
             <div class="column">
                 <div class="content has-background-light">
-                    <h3 class="has-text-centered">Rewards</h3>
-                    <p>{{ scene.rewards }}</p>
+                    <h3 class="subtitle has-text-centered">Location</h3>
+                    <p>{{ scene.place|markdownify }}</p>
                 </div>
             </div>
+
         </div>
 
         <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
-                    <h3 class="has-text-centered">Encounters</h3>
-                    <p>{{ scene.encounters }}</p>
+                    <h3 class="subtitle has-text-centered">Encounters</h3>
+                    <p>{{ scene.encounters|markdownify }}</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="subtitle has-text-centered">Rewards</h3>
+                    <p>{{ scene.rewards|markdownify }}</p>
                 </div>
             </div>
         </div>
     </div>
+
 
 {% endblock %}

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
 from rpscene import views
 
@@ -36,3 +36,5 @@ urlpatterns = [
                   path('markdownx/', include('markdownx.urls')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler403 = 'rpscene.views.no_access'

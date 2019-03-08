@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'scenes',
     'characters',
     'items',
+    'locations',
     'persistence',
     'user_manager',
 
@@ -184,5 +185,3 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'br',
     'hr',
 ]
-
-

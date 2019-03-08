@@ -9,4 +9,4 @@ class SceneForm(ModelForm):
 
     class Meta:
         model = Scene
-        fields = ("name", "place", "description", "characters", "encounters", "rewards")
+        fields = ("name", "place", "description", "characters", "encounters", "rewards", "sound_effects")

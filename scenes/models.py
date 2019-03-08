@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from user_manager.models import User
@@ -14,9 +15,13 @@ class PlaylistItem(models.Model):
 
     @property
     def play_link(self):
-        if self.service.lower() == "spotify":
+        if self.service == "SPOTIFY":
             return self.uri
         return self.uri
+
+    @property
+    def pretty_service(self):
+        return settings.SCENE_PLAYLIST_ACCEPTED_SERVICES_DICT.get(self.service, self.service)
 
     def __str__(self):
         return self.name

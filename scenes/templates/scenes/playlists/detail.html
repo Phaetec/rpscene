@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load markdownify %}
+
+{% block content %}
+    <div class="content">
+        <nav class="level">
+            <div class="level-left">
+                <a href="{% url "scenes:playlist.edit" playlist.id %}" class="level-item button">
+                    <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                    <span>Edit</span>
+                </a>
+            </div>
+            <h1 class="level-item title has-text-centered">{{ playlist.name }}</h1>
+            <div class="level-right">
+                <a href="{% url "scenes:playlist.delete" playlist.id %}"
+                   class="level-item button is-danger is-outlined">
+                    <span>Delete</span>
+                    <span class="icon is-small"><i class="fas fa-times"></i></span>
+                </a>
+            </div>
+        </nav>
+        <h3 class="subtitle has-text-centered">On {{ playlist.pretty_service }}</h3>
+        <div class="columns">
+            <div class="column">
+                <div class="content has-background-light">
+                    <p>{{ playlist.play_link }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

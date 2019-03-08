@@ -10,6 +10,7 @@ django = "*"
 defusedxml = "*"
 django-bulma = "*"
 django-markdownx = "*"
+django-markdownify = "*"
 
 [requires]
 python_version = "3.7"

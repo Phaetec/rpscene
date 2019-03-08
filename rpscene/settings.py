@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
 import os
+from datetime import datetime
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "index"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,14 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 
     # own apps
     'scenes',
     'characters',
     'items',
     'persistence',
+    'user_manager',
 
     # 3rd Party
+    'bulma',
+    'markdownx',
+    'markdownify',
+    'searchableselect',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +66,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rpscene.urls'
+
+AUTH_USER_MODEL = 'user_manager.User'
 
 TEMPLATES = [
     {
@@ -103,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -116,7 +130,63 @@ USE_L10N = True
 
 USE_TZ = True
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# Messages Framework settings
+# Map Messages Framework tags to Bulma classes
+MESSAGE_TAGS = {
+    messages.DEBUG: 'is-info',
+    messages.INFO: 'is-info',
+    messages.SUCCESS: 'is-success',
+    messages.WARNING: 'is-warning',
+    messages.ERROR: 'is-danger',
+}
+
+SCENE_PLAYLIST_ACCEPTED_SERVICES_DICT = {
+    "SPOTIFY": "Spotify"
+}
+SCENE_PLAYLIST_ACCEPTED_SERVICES = SCENE_PLAYLIST_ACCEPTED_SERVICES_DICT.items()
+
+# ############ Custom Plugin Settings
+
+# MarkdownX Settings
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
+MARKDOWNX_UPLOAD_MAX_SIZE = 2 * 1024 * 1024
+MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
+
+# Markdownify Settings
+MARKDOWNIFY_WHITELIST_TAGS = [
+    'a',
+    'abbr',
+    'acronym',
+    'b',
+    'blockquote',
+    'em',
+    'i',
+    'li',
+    'ol',
+    'p',
+    'strong',
+    'ul',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'br',
+    'hr',
+]

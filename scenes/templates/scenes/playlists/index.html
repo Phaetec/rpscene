@@ -5,30 +5,32 @@
         <nav class="level">
             <div class="level-left">
                 <div class="level-item">
-                    <h1 class="title">All Scenes</h1>
+                    <h1 class="title">All Playlists</h1>
                 </div>
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a href="{% url "scenes:create" %}" class="button is-success">Create</a>
+                    <a href="{% url "scenes:playlist.create" %}" class="button is-success">Create</a>
                 </div>
             </div>
 
         </nav>
-        {% for scene in scenes %}
+        {% for playlist in playlists %}
             <div class="box">
-                <p class="title">{{ scene.name }}</p>
-                <p class="subtitle">{{ scene.place }}</p>
+                <p class="title">{{ playlist.name }}</p>
+                <p class="subtitle">On {{ playlist.pretty_service }}</p>
                 <nav class="level">
                     <div class="level-left">
-                        <a href="{% url "scenes:detail" scene.id %}" class="level-item button is-primary is-outlined">View</a>
-                        <a href="{% url "scenes:edit" scene.id %}" class="level-item button">
+                        <a href="{% url "scenes:playlist.detail" playlist.id %}"
+                           class="level-item button is-primary is-outlined">View</a>
+                        <a href="{% url "scenes:playlist.edit" playlist.id %}" class="level-item button">
                             <span class="icon is-small"><i class="fas fa-edit"></i></span>
                             <span>Edit</span>
                         </a>
                     </div>
                     <div class="level-right">
-                        <a href="{% url "scenes:delete" scene.id %}" class="level-item button is-danger is-outlined">
+                        <a href="{% url "scenes:playlist.delete" playlist.id %}"
+                           class="level-item button is-danger is-outlined">
                             <span>Delete</span>
                             <span class="icon is-small"><i class="fas fa-times"></i></span>
                         </a>

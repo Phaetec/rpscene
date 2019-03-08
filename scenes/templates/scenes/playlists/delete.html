@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="notification">
+        <form method="post">{% csrf_token %}
+            Please confirm that you want to delete the playlist
+            <p class="has-text-centered">{{ playlist.name }}</p>
+            <a href="{% url "scenes:playlist.index" %}" class="button">Cancel</a>
+            <button type="submit" class="button is-danger">Delete</button>
+        </form>
+    </div>
+{% endblock %}

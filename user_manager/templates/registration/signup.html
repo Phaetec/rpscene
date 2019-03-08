@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+
+{% block content %}
+    <div class="columns content" style="max-width: 800px;margin:auto;">
+        <div class="column">
+            <h2 class="heading">Sign up</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <button type="submit" class="button is-primary">Sign up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

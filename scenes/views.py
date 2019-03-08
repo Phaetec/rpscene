@@ -1,14 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from scenes.forms import SceneForm, PlaylistItemForm
 from scenes.models import Scene, PlaylistItem
-
-
-class UserIsOwnerMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user == self.get_object().owner
+from utils.mixins.UserIsOwnerMixin import UserIsOwnerMixin
 
 
 class IndexScene(LoginRequiredMixin, ListView):

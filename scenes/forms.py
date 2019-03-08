@@ -6,6 +6,9 @@ from scenes.models import Scene
 
 class SceneForm(ModelForm):
     description = MarkdownxFormField()
+    characters = MarkdownxFormField()
+    encounters = MarkdownxFormField()
+    rewards = MarkdownxFormField()
 
     class Meta:
         model = Scene

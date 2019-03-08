@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load markdownify %}
 
 {% block content %}
     <div class="content">
@@ -21,13 +22,13 @@
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Description</h3>
-                    <p>{{ scene.description }}</p>
+                    <p>{{ scene.description|markdownify }}</p>
                 </div>
             </div>
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Characters</h3>
-                    <p>{{ scene.characters }}</p>
+                    <p>{{ scene.characters|markdownify }}</p>
                 </div>
             </div>
         </div>
@@ -36,13 +37,13 @@
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Location</h3>
-                    <p>{{ scene.place }}</p>
+                    <p>{{ scene.place|markdownify }}</p>
                 </div>
             </div>
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Rewards</h3>
-                    <p>{{ scene.rewards }}</p>
+                    <p>{{ scene.rewards|markdownify }}</p>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Encounters</h3>
-                    <p>{{ scene.encounters }}</p>
+                    <p>{{ scene.encounters|markdownify }}</p>
                 </div>
             </div>
         </div>

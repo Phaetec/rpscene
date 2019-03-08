@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # 3rd Party
     'bulma',
     'markdownx',
+    'markdownify',
 ]
 
 MIDDLEWARE = [
@@ -143,7 +144,32 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+############# Custom Plugin Settings
+
 # MarkdownX Settings
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 MARKDOWNX_UPLOAD_MAX_SIZE = 2 * 1024 * 1024
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/svg+xml']
+
+# Markdownify Settings
+MARKDOWNIFY_WHITELIST_TAGS = [
+    'a',
+    'abbr',
+    'acronym',
+    'b',
+    'blockquote',
+    'em',
+    'i',
+    'li',
+    'ol',
+    'p',
+    'strong',
+    'ul',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'br',
+    'hr',
+]

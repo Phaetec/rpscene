@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bulma',
     'markdownx',
     'markdownify',
+    'searchableselect',
 ]
 
 MIDDLEWARE = [
@@ -155,7 +156,12 @@ MESSAGE_TAGS = {
     messages.ERROR: 'is-danger',
 }
 
-############# Custom Plugin Settings
+SCENE_PLAYLIST_ACCEPTED_SERVICES_DICT = {
+    "SPOTIFY": "Spotify"
+}
+SCENE_PLAYLIST_ACCEPTED_SERVICES = SCENE_PLAYLIST_ACCEPTED_SERVICES_DICT.items()
+
+# ############ Custom Plugin Settings
 
 # MarkdownX Settings
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
@@ -184,5 +190,3 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'br',
     'hr',
 ]
-
-

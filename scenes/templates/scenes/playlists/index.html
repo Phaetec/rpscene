@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">All Playlists</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{% url "scenes:playlist.create" %}" class="button is-success">Create</a>
+                </div>
+            </div>
+
+        </nav>
+        {% for playlist in playlists %}
+            <div class="box">
+                <p class="title">{{ playlist.name }}</p>
+                <p class="subtitle">On {{ playlist.pretty_service }}</p>
+                <nav class="level">
+                    <div class="level-left">
+                        <a href="{% url "scenes:playlist.detail" playlist.id %}"
+                           class="level-item button is-primary is-outlined">View</a>
+                        <a href="{% url "scenes:playlist.edit" playlist.id %}" class="level-item button">
+                            <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                            <span>Edit</span>
+                        </a>
+                    </div>
+                    <div class="level-right">
+                        <a href="{% url "scenes:playlist.delete" playlist.id %}"
+                           class="level-item button is-danger is-outlined">
+                            <span>Delete</span>
+                            <span class="icon is-small"><i class="fas fa-times"></i></span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        {% endfor %}
+
+        {% if is_paginated %}
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a href="?page=1" class="button pagination-previous">First</a>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="button pagination-previous">Previous</a>
+                {% endif %}
+                <div class="pagination-list">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </div>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="button pagination-next">Next</a>
+                {% endif %}
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="button pagination-next">Last</a>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}

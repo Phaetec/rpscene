@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'scenes',
     'characters',
     'items',
+    'locations',
     'persistence',
     'user_manager',
 

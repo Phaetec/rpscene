@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 
+from scenes.utils import build_spotify_widget
 from user_manager.models import User
 
 
@@ -11,12 +12,12 @@ class PlaylistItem(models.Model):
     service = models.CharField("Service", max_length=100, null=False, default="Spotify")
     # We do not use Djangos URL field because in the future we might need more complex content
     uri = models.CharField("URI", max_length=1000, null=False,
-                           default="https://open.spotify.com/user/cate.falconer/playlist/7dFPewHpqOdEb3E88AZhYC?si=sFYcXn4SRSOF2sHYoFQ1Yg")
+                           default="https://open.spotify.com/user/cate.falconer/playlist/7dFPewHpqOdEb3E88AZhYC")
 
     @property
-    def play_link(self):
+    def play_html(self):
         if self.service == "SPOTIFY":
-            return self.uri
+            return build_spotify_widget(self.uri)
         return self.uri
 
     @property

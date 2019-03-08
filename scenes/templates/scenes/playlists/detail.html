@@ -21,9 +21,9 @@
         </nav>
         <h3 class="subtitle has-text-centered">On {{ playlist.pretty_service }}</h3>
         <div class="columns">
-            <div class="column">
-                <div class="content has-background-light">
-                    <p>{{ playlist.play_link }}</p>
+            <div class="column has-text-centered">
+                <div class="has-background-light">
+                    {{ playlist.play_html|safe }}
                 </div>
             </div>
         </div>

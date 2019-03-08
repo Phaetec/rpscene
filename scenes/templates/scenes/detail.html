@@ -19,6 +19,9 @@
             </div>
         </nav>
         <p><strong>Current Location:</strong> {{ scene.place }}</p>
+        {% if scene.sound_effects %}
+            <p><strong>Sound Effects:</strong> {{ scene.sound_effects.play_link }}</p>
+        {% endif %}
         <div class="columns">
             <div class="column">
                 <div class="content has-background-light">

@@ -12,6 +12,12 @@ class PlaylistItem(models.Model):
     uri = models.CharField("URI", max_length=1000, null=False,
                            default="https://open.spotify.com/user/cate.falconer/playlist/7dFPewHpqOdEb3E88AZhYC?si=sFYcXn4SRSOF2sHYoFQ1Yg")
 
+    @property
+    def play_link(self):
+        if self.service.lower() == "spotify":
+            return self.uri
+        return self.uri
+
     def __str__(self):
         return self.name
 

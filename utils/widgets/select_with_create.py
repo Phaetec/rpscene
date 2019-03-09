@@ -14,9 +14,7 @@ class SelectWithCreate(Select):
         context['create_url'] = self.create_url
         context['update_url'] = self.update_url
 
-        print("Context!")
-
         return context
 
-    # class Media:
-    #     js = (static('jquery'))
+    class Media:
+        js = ('/static/node_modules/jquery/dist/jquery.js',)

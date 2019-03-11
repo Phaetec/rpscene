@@ -4,6 +4,7 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 
 from locations.forms import LocationForm
 from locations.models import Location
+from utils.mixins.AjaxTemplateMixin import AjaxTemplateMixin
 from utils.mixins.UserIsOwnerMixin import UserIsOwnerMixin
 
 
@@ -17,17 +18,24 @@ class IndexLocation(LoginRequiredMixin, ListView):
         return Location.objects.filter(owner=self.request.user)
 
 
+class IndexOptionsLocation(LoginRequiredMixin, ListView):
+    model = Location
+    template_name = 'locations/indexoptions.html'
+    context_object_name = 'locations'
+
+
 class DetailLocation(LoginRequiredMixin, UserIsOwnerMixin, DetailView):
     model = Location
     pk_url_kwarg = 'location_id'
     template_name = 'locations/detail.html'
 
 
-class CreateLocation(LoginRequiredMixin, CreateView):
+class CreateLocation(LoginRequiredMixin, AjaxTemplateMixin, CreateView):
     model = Location
     form_class = LocationForm
     pk_url_kwarg = 'location_id'
     template_name = 'locations/create.html'
+    ajax_template_name = 'locations/create_inner.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

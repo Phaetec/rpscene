@@ -37,10 +37,14 @@ function addCreateToSelect(select) {
                     url: createUrl,
                     data: $(this).serialize(),
                     success: function (xhr, ajaxOptions, thrownError) {
+                        select.load(updateUrl, function () {
+                            select.find('option[value="' + xhr["id"] + '"]').prop("selected", true);
+                        });
+
                         createModal.fadeOut("fast", function () {
                             $(this).toggleClass("is-active");
                         });
-                        select.load(updateUrl);
+
                         createHelp.addClass("is-success").text("Added element!").delay(5000).fadeOut("fast", function () {
                             $(this).removeClass("is-success")
                         });

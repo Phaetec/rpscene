@@ -22,6 +22,11 @@ class SceneForm(ModelForm):
                 "create-url": reverse_lazy("locations:create"),
                 "update-url": reverse_lazy("locations:as-options"),
                 "select-with-create": ""
+            }),
+            'sound_effects': Select(attrs={
+                "create-url": reverse_lazy("scenes:playlist.create"),
+                "update-url": reverse_lazy("scenes:playlist.as-options"),
+                "select-with-create": ""
             })
         }
 

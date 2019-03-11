@@ -4,6 +4,7 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 
 from scenes.forms import SceneForm, PlaylistItemForm
 from scenes.models import Scene, PlaylistItem
+from utils.mixins.AjaxTemplateMixin import AjaxTemplateMixin
 from utils.mixins.UserIsOwnerMixin import UserIsOwnerMixin
 
 
@@ -66,6 +67,12 @@ class PlayListIndexScene(LoginRequiredMixin, ListView):
         return PlaylistItem.objects.filter(owner=self.request.user)
 
 
+class PlayListOptions(LoginRequiredMixin, ListView):
+    model = PlaylistItem
+    template_name = 'scenes/playlists/indexoptions.html'
+    context_object_name = 'playlists'
+
+
 class PlayListDetailScene(LoginRequiredMixin, UserIsOwnerMixin, DetailView):
     model = PlaylistItem
     context_object_name = 'playlist'
@@ -73,11 +80,12 @@ class PlayListDetailScene(LoginRequiredMixin, UserIsOwnerMixin, DetailView):
     template_name = 'scenes/playlists/detail.html'
 
 
-class PlayListCreateScene(LoginRequiredMixin, CreateView):
+class PlayListCreateScene(LoginRequiredMixin, AjaxTemplateMixin, CreateView):
     model = Scene
     form_class = PlaylistItemForm
     pk_url_kwarg = 'playlistitem_id'
     template_name = 'scenes/playlists/create.html'
+    ajax_template_name = 'scenes/playlists/create_inner.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

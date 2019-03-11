@@ -15,4 +15,5 @@ urlpatterns = [
     path('playlist/create/', views.PlayListCreateScene.as_view(), name='playlist.create'),
     path('playlist/edit/<int:playlistitem_id>', views.PlayListEditScene.as_view(), name='playlist.edit'),
     path('playlist/delete/<int:playlistitem_id>', views.PlayListDeleteScene.as_view(), name='playlist.delete'),
+    path('playlist/as-options/', views.PlayListOptions.as_view(), name='playlist.as-options'),
 ]

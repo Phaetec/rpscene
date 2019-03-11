@@ -13,131 +13,132 @@
     <title>RP Scene - Direct your game</title>
 </head>
 <body>
-{% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="notification has-text-centered {{ message.tags }}">
-                <button class="delete"></button>
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    <script type="text/javascript">
-        $(document).on('click', '.notification > button.delete', function () {
-            $(this).parent().slideUp().fadeOut({
-                duration: "fast", queue: false, complete: function () {
-                    $(this).remove();
-                }
+<div class="main-content">
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="notification has-text-centered {{ message.tags }}">
+                    <button class="delete"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        <script type="text/javascript">
+            $(document).on('click', '.notification > button.delete', function () {
+                $(this).parent().slideUp().fadeOut({
+                    duration: "fast", queue: false, complete: function () {
+                        $(this).remove();
+                    }
+                });
+                return false;
             });
-            return false;
-        });
-        $(document).ready(function () {
-            $('.messages > .notification').delay(10000).fadeOut({
-                duration: "fast", complete: function () {
-                    $(this).remove();
-                }
+            $(document).ready(function () {
+                $('.messages > .notification').delay(10000).fadeOut({
+                    duration: "fast", complete: function () {
+                        $(this).remove();
+                    }
+                });
             });
-        });
-    </script>
-{% endif %}
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-            <span class="icon"><i class="fas fa-dice-d20"></i></span>
-        </a>
-
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-           data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item" href="/">
-                Home
+        </script>
+    {% endif %}
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <span class="icon"><i class="fas fa-dice-d20"></i></span>
             </a>
 
-            <a class="navbar-item" href="/scenes">
-                Scenes
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+               data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
+        </div>
 
-            <a class="navbar-item" href="/locations">
-                Locations
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    More
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/">
+                    Home
                 </a>
 
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="{% url "scenes:playlist.index" %}">
-                        Sounds / Music
+                <a class="navbar-item" href="/scenes">
+                    Scenes
+                </a>
+
+                <a class="navbar-item" href="/locations">
+                    Locations
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        More
                     </a>
-                    <a class="navbar-item">
-                        Jobs
-                    </a>
-                    <a class="navbar-item">
-                        Contact
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item">
-                        Report an issue
-                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{% url "scenes:playlist.index" %}">
+                            Sounds / Music
+                        </a>
+                        <a class="navbar-item">
+                            Jobs
+                        </a>
+                        <a class="navbar-item">
+                            Contact
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                            Report an issue
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="navbar-end">
-            {% if not user.is_authenticated %}
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" href="{% url 'accounts:signup' %}">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light" href="{% url 'login' %}">
-                            Log in
-                        </a>
+            <div class="navbar-end">
+                {% if not user.is_authenticated %}
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="{% url 'accounts:signup' %}">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light" href="{% url 'login' %}">
+                                Log in
+                            </a>
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                <div class="navbar-item">
-                    <p class="navbar-item"><strong>Hi, {{ user.username }}!</strong></p>
-                    <div class="buttons">
-                        <a class="button is-light" href="{% url 'password_change' %}">
-                            Change password
-                        </a>
-                        <a class="button is-light is-outlined is-danger" href="{% url 'logout' %}">
-                            Log out
-                        </a>
+                {% else %}
+                    <div class="navbar-item">
+                        <p class="navbar-item"><strong>Hi, {{ user.username }}!</strong></p>
+                        <div class="buttons">
+                            <a class="button is-light" href="{% url 'password_change' %}">
+                                Change password
+                            </a>
+                            <a class="button is-light is-outlined is-danger" href="{% url 'logout' %}">
+                                Log out
+                            </a>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<section class="section hero is-dark is-small is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title has-text-centered">
-                RP Scene
-            </h1>
-            <h2 class="subtitle has-text-centered">
-                Direct your game
-            </h2>
+    <section class="section hero is-dark is-small is-small">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-centered">
+                    RP Scene
+                </h1>
+                <h2 class="subtitle has-text-centered">
+                    Direct your game
+                </h2>
+            </div>
         </div>
-    </div>
-</section>
-<br/>
-<section class="container">
-    {% block content %}
-    {% endblock %}
-</section>
-
+    </section>
+    <br/>
+    <section class="container">
+        {% block content %}
+        {% endblock %}
+    </section>
+</div>
 <footer class="footer fix-footer">
     <div class="content has-text-centered">
         <p>

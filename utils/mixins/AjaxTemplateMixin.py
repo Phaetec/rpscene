@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+
+
 class AjaxTemplateMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
@@ -9,4 +12,12 @@ class AjaxTemplateMixin(object):
                 self.ajax_template_name = ''.join(split)
             self.template_name = self.ajax_template_name
 
-        return super(AjaxTemplateMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        if self.request.is_ajax():
+            return JsonResponse({"id": self.object.id})
+        else:
+            return response

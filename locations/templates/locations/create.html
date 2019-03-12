@@ -33,11 +33,6 @@
 {% block extra_media %}
     {{ form.media }}
     <script>
-        $('#add_more').click(function () {
-            var form_idx = $('#id_racedistribution_set-TOTAL_FORMS').prop("value");
-            console.log(form_idx);
-            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-            $('#id_racedistribution_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-        });
+        activate_dynamic_inline_forms("racedistribution");
     </script>
 {% endblock %}

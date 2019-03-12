@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load markdownify %}
+{% load static %}
 
 {% block content %}
     <div class="content">
@@ -55,7 +56,42 @@
 
             <p>{{ occupant.race }} - {{ occupant.percentage }}</p>
         {% endfor %}
+        <div class="columns">
+            <div class="column">
+                <div style="max-width:400px;max-height: 400px;">
+                    <canvas id="occupancyChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
 
+{% block extra_media %}
+    <script src="{% static 'node_modules/chart.js/dist/Chart.min.js' %}"></script>
+    <script>
+        let ctx = document.getElementById("occupancyChart").getContext('2d');
+        let races_distribution = [{% for o in location.racedistribution_set.all %}{{ o.percentage }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        let races_labels = [{% for o in location.racedistribution_set.all %}"{{ o.race }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+        let myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: races_distribution,
+                        backgroundColor: [
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(0, 163, 51)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)',
+                            'rgb(0,0,255)'
+                        ]
+                    }],
 
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: races_labels
+                }
+            })
+        ;
+    </script>
 {% endblock %}

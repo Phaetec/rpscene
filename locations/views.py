@@ -67,6 +67,25 @@ class EditLocation(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
     pk_url_kwarg = 'location_id'
     template_name = 'locations/edit.html'
 
+    def get_context_data(self, **kwargs):
+        data = super(EditLocation, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data["occupancies"] = RaceDistributionFormSet(self.request.POST, instance=self.object)
+        else:
+            data["occupancies"] = RaceDistributionFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        occupancies = context["occupancies"]
+        with transaction.atomic():
+            print("ruhroh")
+            if occupancies.is_valid():
+                print("is valid giiiiiirrrrrrl")
+                occupancies.instance = self.object
+                occupancies.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy('locations:detail', kwargs={'location_id': self.object.id})
 

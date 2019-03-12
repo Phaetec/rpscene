@@ -8,6 +8,23 @@
                 {% csrf_token %}
                 {{ form|bulma }}
                 <button type="submit" class="button is-primary">Save Scene</button>
+                <hr>
+                <div id="form_set">
+                    {{ occupancies.management_form }}
+                    {% for extra_form in occupancies.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div class="no_error">
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Add More" id="add_more" class="button is-primary">
+                <div id="empty_form" style="display:none">
+                    <table class='no_error'>
+                        {{ occupancies.empty_form|bulma }}
+                    </table>
+                </div>
             </form>
         </div>
     </div>
@@ -15,4 +32,12 @@
 
 {% block extra_media %}
     {{ form.media }}
+    <script>
+        $('#add_more').click(function () {
+            var form_idx = $('#id_racedistribution_set-TOTAL_FORMS').prop("value");
+            console.log(form_idx);
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_racedistribution_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
 {% endblock %}

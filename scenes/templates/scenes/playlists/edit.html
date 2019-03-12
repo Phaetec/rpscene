@@ -4,7 +4,7 @@
 {% block content %}
     <div class="columns content">
         <div class="column">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|bulma }}
                 <button type="submit" class="button is-primary">Save Playlist</button>

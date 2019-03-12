@@ -18,12 +18,33 @@
                 </a>
             </div>
         </nav>
+        <nav class="level">
+            <div class="level-left">
+                <span><strong>Type:</strong> {{ location.type }}</span>
+            </div>
+            <div class="level-right">
+                <span><strong>Ruler / Owner:</strong> {{ location.ruler }}</span>
+            </div>
+        </nav>
         <div class="columns">
             <div class="column">
                 <div class="content has-background-light">
                     <h3 class="subtitle has-text-centered">Description</h3>
                     <p>{{ location.description|markdownify }}</p>
                 </div>
+            </div>
+            <div class="column content image has-background-light has-text-centered">
+                <h3 class="subtitle">Map</h3>
+                <a href="{{ location.map.url }}">
+                    <img class="is-rounded map is-inline-block" alt="A Map of {{ location.name }}"
+                         src="{{ location.map.url }}"/>
+                </a>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column content has-background-light">
+                <h3 class="subtitle has-text-centered">History</h3>
+                <p>{{ location.history|markdownify }}</p>
             </div>
         </div>
     </div>

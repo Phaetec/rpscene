@@ -79,9 +79,7 @@ class EditLocation(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
         context = self.get_context_data()
         occupancies = context["occupancies"]
         with transaction.atomic():
-            print("ruhroh")
             if occupancies.is_valid():
-                print("is valid giiiiiirrrrrrl")
                 occupancies.instance = self.object
                 occupancies.save()
         return super().form_valid(form)

@@ -9,9 +9,9 @@ from scenes.models import PlaylistItem, Scene
 
 class SceneForm(ModelForm):
     description = MarkdownxFormField()
-    characters = MarkdownxFormField()
-    encounters = MarkdownxFormField()
-    rewards = MarkdownxFormField()
+    characters = MarkdownxFormField(required=False)
+    encounters = MarkdownxFormField(required=False)
+    rewards = MarkdownxFormField(required=False)
 
     class Meta:
         model = Scene

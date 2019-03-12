@@ -8,6 +8,8 @@
                 {% csrf_token %}
                 {{ form|bulma }}
                 <button type="submit" class="button is-primary">Create Location</button>
+                <hr>
+                {{ occupancies|bulma }}
             </form>
         </div>
     </div>

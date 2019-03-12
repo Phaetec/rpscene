@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
-from locations.forms import LocationForm
+from locations.forms import LocationForm, RaceDistributionFormSet
 from locations.models import Location
 from utils.mixins.AjaxTemplateMixin import AjaxTemplateMixin
 from utils.mixins.UserIsOwnerMixin import UserIsOwnerMixin
@@ -37,8 +38,23 @@ class CreateLocation(LoginRequiredMixin, AjaxTemplateMixin, CreateView):
     template_name = 'locations/create.html'
     ajax_template_name = 'locations/create_inner.html'
 
+    def get_context_data(self, **kwargs):
+        data = super(CreateLocation, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data["occupancies"] = RaceDistributionFormSet(self.request.POST)
+        else:
+            data["occupancies"] = RaceDistributionFormSet()
+        return data
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user
+        context = self.get_context_data()
+        occupancies = context["occupancies"]
+        with transaction.atomic():
+            form.instance.owner = self.request.user
+            self.object = form.save()
+            if occupancies.is_valid():
+                occupancies.instance = self.object
+                occupancies.save()
         return super().form_valid(form)
 
     def get_success_url(self):

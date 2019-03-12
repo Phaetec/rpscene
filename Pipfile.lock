@@ -41,10 +41,10 @@
         },
         "django-bulma": {
             "hashes": [
-                "sha256:6e495c69dc0e08e0e2812da37999b01198bc2959cdc993f63a3ee6d2da227e23"
+                "sha256:086c000bc44aa458ee98f1e51fa01acfe080499d617e959ad1296f268cbef81b"
             ],
             "index": "pypi",
-            "version": "==0.5.3.0"
+            "version": "==0.5.6"
         },
         "django-markdownify": {
             "hashes": [

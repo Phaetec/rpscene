@@ -51,6 +51,10 @@
                 </div>
             </div>
         </div>
+        {% for occupant in location.racedistribution_set.all %}
+
+            <p>{{ occupant.race }} - {{ occupant.percentage }}</p>
+        {% endfor %}
     </div>
 
 

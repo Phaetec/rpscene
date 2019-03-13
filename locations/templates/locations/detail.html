@@ -61,7 +61,9 @@
                         <h3 class="subtitle">Occupant Distribution</h3>
                         <canvas style="max-width:600px;max-height: 400px;" id="occupancyChart" width="600"
                                 height="400" class="is-inline-block"></canvas>
-                        
+                        <br/>
+                        <button class="button is-info" id="button-random-occupant">Random Occupant</button>
+                        <p id="p-random-occupant"></p>
                     </div>
                 </div>
             </div>
@@ -89,6 +91,35 @@
                     }
                 })
             ;
+            let rand = function (min, max) {
+                return Math.random() * (max - min) + min;
+            };
+
+            let getRandomItem = function (list, weight) {
+                let total_weight = weight.reduce(function (prev, cur, i, arr) {
+                    return prev + cur;
+                });
+
+                let random_num = rand(0, total_weight);
+                let weight_sum = 0;
+                //console.log(random_num)
+
+                for (let i = 0; i < list.length; i++) {
+                    weight_sum += weight[i];
+                    weight_sum = +weight_sum.toFixed(2);
+
+                    if (random_num <= weight_sum) {
+                        return list[i];
+                    }
+                }
+
+                // end of function
+            };
+
+            $('#button-random-occupant').click(function () {
+                let random_item = getRandomItem(races_labels, races_distribution);
+                $('#p-random-occupant').text("Random Occupant: " + random_item);
+            });
         </script>
     {% endif %}
 {% endblock %}

@@ -21,10 +21,10 @@
         </nav>
         <nav class="level">
             <div class="level-left">
-                <span><strong>Type:</strong> {{ location.type }}</span>
+                <span><strong>Type:</strong> {{ location.type|default:"Unknown" }}</span>
             </div>
             <div class="level-right">
-                <span><strong>Ruler / Owner:</strong> {{ location.ruler }}</span>
+                <span><strong>Ruler / Owner:</strong> {{ location.ruler|default:"No ruler" }}</span>
             </div>
         </nav>
         <div class="columns">
@@ -44,54 +44,51 @@
                 </div>
             {% endif %}
         </div>
-        <div class="columns">
-            <div class="column">
-                <div class="content has-background-light">
-                    <h3 class="subtitle has-text-centered">History</h3>
-                    <p>{{ location.history|markdownify }}</p>
+        {% if location.history %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light">
+                        <h3 class="subtitle has-text-centered">History</h3>
+                        <p>{{ location.history|markdownify }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% for occupant in location.racedistribution_set.all %}
-
-            <p>{{ occupant.race }} - {{ occupant.percentage }}</p>
-        {% endfor %}
-        <div class="columns">
-            <div class="column">
-                <div style="max-width:400px;max-height: 400px;">
-                    <canvas id="occupancyChart" width="400" height="400"></canvas>
+        {% endif %}
+        {% if location.racedistribution_set.exists %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light has-text-centered">
+                        <h3 class="subtitle">Occupant Distribution</h3>
+                        <canvas style="max-width:600px;max-height: 400px;" id="occupancyChart" width="600"
+                                height="400" class="is-inline-block"></canvas>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block extra_media %}
-    <script src="{% static 'node_modules/chart.js/dist/Chart.min.js' %}"></script>
-    <script>
-        let ctx = document.getElementById("occupancyChart").getContext('2d');
-        let races_distribution = [{% for o in location.racedistribution_set.all %}{{ o.percentage }}{% if not forloop.last %}, {% endif %}{% endfor %}];
-        let races_labels = [{% for o in location.racedistribution_set.all %}"{{ o.race }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
-        let myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    datasets: [{
-                        data: races_distribution,
-                        backgroundColor: [
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(0, 163, 51)',
-                            'rgb(54, 162, 235)',
-                            'rgb(153, 102, 255)',
-                            'rgb(201, 203, 207)',
-                            'rgb(0,0,255)'
-                        ]
-                    }],
+    {% if location.racedistribution_set.exists %}
+        <script src="{% static 'node_modules/chart.js/dist/Chart.min.js' %}"></script>
+        <script src="{% static 'node_modules/chartjs-plugin-colorschemes/dist/chartjs-plugin-colorschemes.min.js' %}"></script>
+        <script>
+            let ctx = document.getElementById("occupancyChart").getContext('2d');
+            let races_distribution = [{% for o in location.racedistribution_set.all %}{{ o.percentage }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+            let races_labels = [{% for o in location.racedistribution_set.all %}"{{ o.race }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+            let myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: races_distribution
+                        }],
 
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: races_labels
-                }
-            })
-        ;
-    </script>
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                        labels: races_labels
+                    }
+                })
+            ;
+        </script>
+    {% endif %}
 {% endblock %}

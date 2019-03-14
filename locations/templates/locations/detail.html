@@ -76,7 +76,7 @@
         <script src="{% static 'node_modules/chart.js/dist/Chart.min.js' %}"></script>
         <script src="{% static 'node_modules/chartjs-plugin-colorschemes/dist/chartjs-plugin-colorschemes.min.js' %}"></script>
         <script>
-            let ctx = document.getElementById("occupancyChart").getContext('2d');
+            let ctx = $("#occupancyChart").get(0).getContext('2d');
             let races_distribution = [{% for o in location.racedistribution_set.all %}{{ o.percentage }}{% if not forloop.last %}, {% endif %}{% endfor %}];
             let races_labels = [{% for o in location.racedistribution_set.all %}"{{ o.race }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
             let myPieChart = new Chart(ctx, {
@@ -91,18 +91,18 @@
                     }
                 })
             ;
-            let rand = function (min, max) {
-                return Math.random() * (max - min) + min;
-            };
 
-            let getRandomItem = function (list, weight) {
+            function rand(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function getRandomItem(list, weight) {
                 let total_weight = weight.reduce(function (prev, cur, i, arr) {
                     return prev + cur;
                 });
 
                 let random_num = rand(0, total_weight);
                 let weight_sum = 0;
-                //console.log(random_num)
 
                 for (let i = 0; i < list.length; i++) {
                     weight_sum += weight[i];
@@ -112,9 +112,7 @@
                         return list[i];
                     }
                 }
-
-                // end of function
-            };
+            }
 
             $('#button-random-occupant').click(function () {
                 let random_item = getRandomItem(races_labels, races_distribution);

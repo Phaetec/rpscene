@@ -39,7 +39,7 @@ class CreateLocation(LoginRequiredMixin, AjaxTemplateMixin, CreateView):
     ajax_template_name = 'locations/create_inner.html'
 
     def get_context_data(self, **kwargs):
-        data = super(CreateLocation, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         if self.request.POST:
             data["occupancies"] = RaceDistributionFormSet(self.request.POST)
         else:
@@ -68,7 +68,7 @@ class EditLocation(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
     template_name = 'locations/edit.html'
 
     def get_context_data(self, **kwargs):
-        data = super(EditLocation, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         if self.request.POST:
             data["occupancies"] = RaceDistributionFormSet(self.request.POST, instance=self.object)
         else:

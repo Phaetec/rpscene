@@ -156,7 +156,7 @@
             let form_idx = total_forms.prop("value");
             $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
             total_forms.val(parseInt(form_idx) + 1);
-        })
+        });
     }
 </script>
 {% block extra_media %}

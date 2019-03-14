@@ -7,6 +7,24 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|bulma }}
+                <p><strong>Race Distribution / Occupancy:</strong></p>
+                <div id="form_set">
+                    {{ occupancies.management_form }}
+                    {% for extra_form in occupancies.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Inhabitants" id="add_more" class="button is-info">
+                <div id="empty_form" style="display:none">
+                    <table>
+                        {{ occupancies.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr/>
                 <button type="submit" class="button is-primary">Create Location</button>
             </form>
         </div>
@@ -15,4 +33,9 @@
 
 {% block extra_media %}
     {{ form.media }}
+    <script>
+        $(document).ready(function () {
+            activate_dynamic_inline_forms("racedistribution");
+        });
+    </script>
 {% endblock %}

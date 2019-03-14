@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load markdownify %}
+{% load static %}
 
 {% block content %}
     <div class="content">
@@ -20,10 +21,10 @@
         </nav>
         <nav class="level">
             <div class="level-left">
-                <span><strong>Type:</strong> {{ location.type }}</span>
+                <span><strong>Type:</strong> {{ location.type|default:"Unknown" }}</span>
             </div>
             <div class="level-right">
-                <span><strong>Ruler / Owner:</strong> {{ location.ruler }}</span>
+                <span><strong>Ruler / Owner:</strong> {{ location.ruler|default:"No ruler" }}</span>
             </div>
         </nav>
         <div class="columns">
@@ -33,21 +34,90 @@
                     <p>{{ location.description|markdownify }}</p>
                 </div>
             </div>
-            <div class="column content image has-background-light has-text-centered">
-                <h3 class="subtitle">Map</h3>
-                <a href="{{ location.map.url }}">
-                    <img class="is-rounded map is-inline-block" alt="A Map of {{ location.name }}"
-                         src="{{ location.map.url }}"/>
-                </a>
-            </div>
+            {% if location.map %}
+                <div class="column content image has-background-light has-text-centered">
+                    <h3 class="subtitle">Map</h3>
+                    <a href="{{ location.map.url }}">
+                        <img class="is-rounded map is-inline-block" alt="A Map of {{ location.name }}"
+                             src="{{ location.map.url }}"/>
+                    </a>
+                </div>
+            {% endif %}
         </div>
-        <div class="columns">
-            <div class="column content has-background-light">
-                <h3 class="subtitle has-text-centered">History</h3>
-                <p>{{ location.history|markdownify }}</p>
+        {% if location.history %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light">
+                        <h3 class="subtitle has-text-centered">History</h3>
+                        <p>{{ location.history|markdownify }}</p>
+                    </div>
+                </div>
             </div>
-        </div>
+        {% endif %}
+        {% if location.racedistribution_set.exists %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light has-text-centered">
+                        <h3 class="subtitle">Occupant Distribution</h3>
+                        <canvas style="max-width:600px;max-height: 400px;" id="occupancyChart" width="600"
+                                height="400" class="is-inline-block"></canvas>
+                        <br/>
+                        <button class="button is-info" id="button-random-occupant">Random Occupant</button>
+                        <p id="p-random-occupant"></p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
+{% endblock %}
 
+{% block extra_media %}
+    {% if location.racedistribution_set.exists %}
+        <script src="{% static 'node_modules/chart.js/dist/Chart.min.js' %}"></script>
+        <script src="{% static 'node_modules/chartjs-plugin-colorschemes/dist/chartjs-plugin-colorschemes.min.js' %}"></script>
+        <script>
+            let ctx = $("#occupancyChart").get(0).getContext('2d');
+            let races_distribution = [{% for o in location.racedistribution_set.all %}{{ o.percentage }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+            let races_labels = [{% for o in location.racedistribution_set.all %}"{{ o.race }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+            let myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: races_distribution
+                        }],
 
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                        labels: races_labels
+                    }
+                })
+            ;
+
+            function rand(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function getRandomItem(list, weight) {
+                let total_weight = weight.reduce(function (prev, cur, i, arr) {
+                    return prev + cur;
+                });
+
+                let random_num = rand(0, total_weight);
+                let weight_sum = 0;
+
+                for (let i = 0; i < list.length; i++) {
+                    weight_sum += weight[i];
+                    weight_sum = +weight_sum.toFixed(2);
+
+                    if (random_num <= weight_sum) {
+                        return list[i];
+                    }
+                }
+            }
+
+            $('#button-random-occupant').click(function () {
+                let random_item = getRandomItem(races_labels, races_distribution);
+                $('#p-random-occupant').text("Random Occupant: " + random_item);
+            });
+        </script>
+    {% endif %}
 {% endblock %}

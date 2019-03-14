@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <p>This is a test file, delete before production</p>
+{% endblock %}
+
+{% block extra_media %}
+    <script src="{% static "node_modules/jshue/src/jshue.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            let hue = jsHue();
+            hue.discover().then(bridges => {
+                if (bridges.length === 0) {
+                    console.log('No bridges found. :(');
+                } else {
+                    bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
+                }
+            }).catch(e => console.log('Error finding bridges', e));
+        })
+    </script>
+{% endblock %}

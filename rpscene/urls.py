@@ -29,6 +29,7 @@ urlpatterns = [
                   path('characters/', include('characters.urls', namespace='characters')),
                   path('items/', include('items.urls', namespace='items')),
                   path('locations/', include('locations.urls', namespace='locations')),
+                  path('lights/', include('lights.urls', namespace='lights')),
 
                   # errors
                   path('error/no_access', views.no_access, name='error.no_access'),

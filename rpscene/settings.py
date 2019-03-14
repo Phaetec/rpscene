@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'locations',
     'persistence',
     'user_manager',
+    'lights',
 
     # 3rd Party
     'bulma',

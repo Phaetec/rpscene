@@ -356,3 +356,4 @@ static/node_modules/*
 static/css/.sass-cache/*
 static/css/*.css
 static/css/*.css.map
+CorePlusUAWithModern.xml

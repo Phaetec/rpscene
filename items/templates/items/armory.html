@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h2>Treasury</h2>
+    {% for money in treasury %}
+        <p>{{ money.name }}</p>
+        <p>
+            <small>Weight: {{ money.weight }}</small>
+        </p>
+        <p>{{ money.description|linebreaks }}</p>
+        <hr>
+    {% endfor %}
+    <hr>
+    <hr>
     {% for item in armory %}
         <div>
             <p>Name: {{ item.name }}</p>

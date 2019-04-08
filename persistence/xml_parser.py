@@ -3,7 +3,7 @@ from defusedxml.ElementTree import parse
 from django.core.exceptions import ObjectDoesNotExist
 
 from items.errors import ItemAlreadyExists
-from items.models import Armor, BonusModifier
+from items.models import Armor, BonusModifier, Money
 from .errors import XMLModifierCategoryNotRecognized
 
 
@@ -139,13 +139,23 @@ def create_armor(item):
         parse_modifiers(item.findall("modifier"), new_armor)
 
 
+def create_money(item):
+    name = item.find("name").text
+    description = parse_text(item.findall("text"))
+    weight = float(item.find("weight").text)
+    if Money.objects.filter(name=name).exists():
+        raise ItemAlreadyExists("An Item with this name already exists.")
+    new_money = Money(name=name, description=description, weight=weight, type="Money", rarity="COMMON")
+    new_money.save()
+
+
 def parse_and_store_item(item):
-    type = item.find("type").text
+    item_type = item.find("type").text
     # Armor Types: LA, MA, HA (Light, Medium, Heavy Armor), S for Shield
-    if type in ["LA", "MA", "HA", "S"]:
+    if item_type in ["LA", "MA", "HA", "S"]:
         create_armor(item)
-    elif type == "$":
-        print(item.find("name").text)
+    elif item_type == "$":
+        create_money(item)
 
 
 def parse_entities(file_path="CorePlusUAWithModern.xml"):
@@ -155,7 +165,7 @@ def parse_entities(file_path="CorePlusUAWithModern.xml"):
         try:
             parse_and_store_item(child)
         except ItemAlreadyExists:
-            print("Small dirty place for testing")
+            pass
 
         # for attrs in child:
         #    if attrs.tag not in ['weight', 'type', 'text', 'name', 'magic', 'detail', 'roll', 'range', 'dmg1',

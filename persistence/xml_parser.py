@@ -69,12 +69,12 @@ def is_magic(item):
 
 def parse_strength_requirement(item):
     strength_var = item.find("strength")
-    if strength_var is None:
+    if strength_var.text is None:
         return 0
     try:
         requirement = int(strength_var.text)
         return requirement
-    except TypeError:
+    except (TypeError, ValueError):
         return 0
 
 
@@ -144,6 +144,8 @@ def parse_and_store_item(item):
     # Armor Types: LA, MA, HA (Light, Medium, Heavy Armor), S for Shield
     if type in ["LA", "MA", "HA", "S"]:
         create_armor(item)
+    elif type == "$":
+        print(item.find("name").text)
 
 
 def parse_entities(file_path="CorePlusUAWithModern.xml"):

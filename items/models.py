@@ -34,6 +34,12 @@ class Armor(Item):
     strength_requirement = models.IntegerField("Strength Requirement", null=True)
 
 
+# Technically we do not need to create this class, but this makes sense from a business logic standpoint.
+# Its also more future proof
+class Money(Item):
+    pass
+
+
 # Auxiliary models, needed for e.g. OneToMany relations
 class BonusModifier(models.Model):
     belongs_to = models.ForeignKey("Item", null=False, on_delete=models.CASCADE, related_name="bonus_mod")

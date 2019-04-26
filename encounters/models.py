@@ -18,12 +18,12 @@ class DnD5eNPC(NPC):
     """
     Models the special stats that are present in Dungeons & Dragons 5th Edition NPCs
     """
-    strength = models.IntegerField(blank=True, null=True)
-    dexterity = models.IntegerField(blank=True, null=True)
-    constitution = models.IntegerField(blank=True, null=True)
-    intelligence = models.IntegerField(blank=True, null=True)
-    wisdom = models.IntegerField(blank=True, null=True)
-    charisma = models.IntegerField(blank=True, null=True)
+    strength = models.IntegerField(default=10)
+    dexterity = models.IntegerField(default=10)
+    constitution = models.IntegerField(default=10)
+    intelligence = models.IntegerField(default=10)
+    wisdom = models.IntegerField(default=10)
+    charisma = models.IntegerField(default=10)
 
     armor_class = models.IntegerField(null=False, default=10)
     armor_type = models.CharField(blank=True, default='', max_length=100)

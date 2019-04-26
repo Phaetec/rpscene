@@ -7,8 +7,8 @@ class NPC(models.Model):
     create a subclass.
     """
     name = models.CharField(max_length=100, null=False, default="")
-    description = models.TextField(max_length=20000, null=True)
-    picture = models.ImageField(null=True)
+    description = models.TextField(max_length=20000, blank=True, default='')
+    picture = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -18,12 +18,12 @@ class DnD5eNPC(NPC):
     """
     Models the special stats that are present in Dungeons & Dragons 5th Edition NPCs
     """
-    strength = models.IntegerField(blank=True, default='')
-    dexterity = models.IntegerField(blank=True, default='')
-    constitution = models.IntegerField(blank=True, default='')
-    intelligence = models.IntegerField(blank=True, default='')
-    wisdom = models.IntegerField(blank=True, default='')
-    charisma = models.IntegerField(blank=True, default='')
+    strength = models.IntegerField(blank=True, null=True)
+    dexterity = models.IntegerField(blank=True, null=True)
+    constitution = models.IntegerField(blank=True, null=True)
+    intelligence = models.IntegerField(blank=True, null=True)
+    wisdom = models.IntegerField(blank=True, null=True)
+    charisma = models.IntegerField(blank=True, null=True)
 
     armor_class = models.IntegerField(null=False, default=10)
     armor_type = models.CharField(blank=True, default='', max_length=100)

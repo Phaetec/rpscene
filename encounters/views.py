@@ -14,6 +14,9 @@ class Create5eNPC(LoginRequiredMixin, CreateView):
     form_class = DnD5eNPCForm
     template_name = 'encounters/npcs/create_dnd_5e_npc.html'
 
+    def get_success_url(self):
+        return reverse_lazy('encounters:npc.5e')
+
 
 class IndexDnD5eNPC(LoginRequiredMixin, ListView):
     """
@@ -22,7 +25,3 @@ class IndexDnD5eNPC(LoginRequiredMixin, ListView):
     model = DnD5eNPC
     template_name = 'encounters/npcs/index_dnd_5e.html'
     context_object_name = 'npcs'
-
-    @staticmethod
-    def get_success_url():
-        return reverse_lazy('encounters:npc.5e')

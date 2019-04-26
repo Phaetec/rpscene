@@ -4,7 +4,7 @@ from django.db import models
 from user_manager.models import User
 
 
-def map_filepath(instance, filename):
+def map_filepath(instance, filename: str) -> str:
     random_uuid = uuid.uuid4()
     return 'user_{0}/{1}/{2}'.format(instance.owner.id, random_uuid, filename)
 

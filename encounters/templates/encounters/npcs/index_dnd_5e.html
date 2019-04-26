@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">All D&D 5e NPCs</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{% url "encounters:npc.5e.add" %}" class="button is-success">Create</a>
+                </div>
+            </div>
+
+        </nav>
+        {% for npc in npcs %}
+            <div class="box">
+                <p class="title">{{ npc.name }}</p>
+            </div>
+        {% endfor %}
+
+        {% if is_paginated %}
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a href="?page=1" class="button pagination-previous">First</a>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="button pagination-previous">Previous</a>
+                {% endif %}
+                <div class="pagination-list">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </div>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="button pagination-next">Next</a>
+                {% endif %}
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="button pagination-next">Last</a>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}

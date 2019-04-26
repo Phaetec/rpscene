@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="columns content">
+        <div class="column">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <button type="submit" class="button is-primary">Create NPC</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

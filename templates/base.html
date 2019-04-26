@@ -70,6 +70,19 @@
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="{% url "characters:index" %}">
+                        Characters
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class=" navbar-item" href="{% url "characters:name-generator:index" %}">
+                            Name Generator
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         More
                     </a>

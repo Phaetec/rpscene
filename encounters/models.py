@@ -37,6 +37,7 @@ class DnD5eNPC(NPC):
     saving_throw_intelligence_bonus = models.IntegerField(null=True)
     saving_throw_wisdom_bonus = models.IntegerField(null=True)
     saving_throw_charisma_bonus = models.IntegerField(null=True)
+    initiative_bonus = models.IntegerField(null=True)
 
     acrobatics_bonus = models.IntegerField(null=True)
     animal_handling_bonus = models.IntegerField(null=True)

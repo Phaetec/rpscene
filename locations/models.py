@@ -11,7 +11,7 @@ def map_filepath(instance, filename: str) -> str:
 
 class RaceDistribution(models.Model):
     # This needs no owner, since it is always tied to a location
-    location = models.ForeignKey("Location", on_delete=models.CASCADE, null=False)
+    location = models.ForeignKey("Location", on_delete=models.CASCADE, null=False, related_name='racedistributions')
     race = models.CharField("Race", max_length=100, null=False)
     percentage = models.FloatField("Percentage", null=False)
 

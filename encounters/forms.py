@@ -6,7 +6,7 @@ from encounters.models import DnD5eNPC, DnD5eAction, DnD5eSpecialAbility, DnD5eL
 class DnD5eNPCForm(ModelForm):
     class Meta:
         model = DnD5eNPC
-        exclude = ()
+        exclude = ('owner',)
 
 
 class DnD5eActionForm(ModelForm):

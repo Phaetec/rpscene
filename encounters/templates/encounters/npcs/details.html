@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="box has-background-dnd-npc">
+            <h2>
+                <strong class="is-dnd-font-color">{{ npc.name }}</strong>
+            </h2>
+            <hr class="is-dnd-separator-color">
+            {% for special_ability in npc.special_abilities.all %}
+                <p><strong>{{ special_ability.name }}</strong> {{ special_ability.description }}</p>
+            {% endfor %}
+            <hr class="is-dnd-separator-color">
+            {% for action in npc.actions.all %}
+                <p><strong>{{ action.name }}</strong> {{ action.description }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

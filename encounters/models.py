@@ -1,11 +1,14 @@
 from django.db import models
 
+from user_manager.models import User
+
 
 class NPC(models.Model):
     """
     Models generic NPCs that are versatile. If you need special fields for a certain Tabletop-RPG System,
     create a subclass.
     """
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     name = models.CharField(max_length=100, null=False, default="")
     description = models.TextField(max_length=20000, blank=True, default='')
     picture = models.ImageField(null=True, blank=True)
@@ -16,8 +19,10 @@ class NPC(models.Model):
 
 class DnD5eNPC(NPC):
     """
-    Models the special stats that are present in Dungeons & Dragons 5th Edition NPCs
+    Models the special stats that are present in Dungeons & Dragons 5th Edition NPCs.
     """
+    creature_type = models.CharField(default='', blank=True, max_length=100)
+    alignment = models.CharField(default='', blank=True, max_length=100)
     strength = models.IntegerField(default=10)
     dexterity = models.IntegerField(default=10)
     constitution = models.IntegerField(default=10)

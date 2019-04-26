@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 askdja
 {% block content %}
-    <ul>
-    {% for char in chars %}
-        <li>{{ char.name }}</li>
-    {% endfor %}
-    </ul>
+    <div class="content">
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">All Characters</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{% url "characters:create" %}" class="button is-success">Create</a>
+                </div>
+            </div>
+        </nav>
+
+        {% for char in chars %}
+            <div class="box">
+                <p class="title">{{ char.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

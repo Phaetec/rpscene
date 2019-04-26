@@ -1,13 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
+{% load npc_tags %}
 
 {% block content %}
     <div class="content">
-        <div class="box has-background-dnd-npc">
+        <div class="box has-background-dnd-npc npc-box">
             <h2>
                 <strong class="is-dnd-font-color">{{ npc.name }}</strong>
             </h2>
+            <p>
+                <i>{{ npc.creature_type }}, {{ npc.alignment }}</i>
+            </p>
+
             <hr class="is-dnd-separator-color">
+
+            <p class="is-dnd-font-color"><b>Armor class</b> {{ npc.armor_class }} ({{ npc.armor_type }})</p>
+            <p class="is-dnd-font-color"><b>Hit Points</b> -rolled hp here- ({{ npc.hit_points }})</p>
+            <p class="is-dnd-font-color"><b>Speed</b> {{ npc.speed }}</p>
+
+            <hr class="is-dnd-separator-color">
+
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>STR</b></p>
+                    <p class="is-dnd-font-color">{{ npc.strength|with_modifier }}</p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>DEX</b></p>
+                    <p class="is-dnd-font-color">{{ npc.dexterity|with_modifier }}</p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>CON</b></p>
+                    <p class="is-dnd-font-color">{{ npc.constitution|with_modifier }}</p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>INT</b></p>
+                    <p class="is-dnd-font-color">{{ npc.intelligence|with_modifier }}</p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>WIS</b></p>
+                    <p class="is-dnd-font-color">{{ npc.wisdom|with_modifier }}</p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="is-dnd-font-color"><b>CHA</b></p>
+                    <p class="is-dnd-font-color">{{ npc.charisma|with_modifier }}</p>
+                </div>
+            </div>
+
+            <hr class="is-dnd-separator-color">
+
+            <p class="is-dnd-font-color"><b>Saving Throws</b>
+                {% saving_throws npc %}
+            </p>
+
+            <hr class="is-dnd-separator-color">
+
             {% for special_ability in npc.special_abilities.all %}
                 <p><strong>{{ special_ability.name }}</strong> {{ special_ability.description }}</p>
             {% endfor %}

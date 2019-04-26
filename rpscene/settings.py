@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # own apps
     'scenes',
     'characters',
+    'encounters',
     'items',
     'locations',
     'persistence',

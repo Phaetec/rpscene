@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+import json
 import os
 from datetime import datetime
+
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -191,3 +193,7 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'br',
     'hr',
 ]
+
+NAME_GENERATOR_NAMES_FILE = os.path.join(BASE_DIR, 'characters/name_generator/names.json')
+with open(NAME_GENERATOR_NAMES_FILE) as json_file:
+    NAME_GENERATOR_NAMES = json.load(json_file)

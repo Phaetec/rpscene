@@ -7,8 +7,36 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|bulma }}
+                <hr>
+                <div id="form_set_actions">
+                    {{ actions.management_form }}
+                    {% for extra_form in actions.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Actions" id="add_more_actions" class="button is-info">
+                <div id="empty_form" style="display:none">
+                    <table>
+                        {{ actions.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr/>
                 <button type="submit" class="button is-primary">Create NPC</button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+
+{% block extra_media %}
+    {{ form.media }}
+    <script>
+        $(document).ready(function () {
+            activate_dynamic_inline_forms("actions", "#add_more_actions", "#form_set_actions");
+        });
+    </script>
 {% endblock %}

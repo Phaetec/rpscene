@@ -2,7 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 
-from encounters.forms import DnD5eNPCForm, DnD5eActionFormSet
+from encounters.forms import DnD5eNPCForm, DnD5eActionFormSet, DnD5eSpecialAbilityFormSet, DnD5eLairActionFormSet, \
+    DnD5eLegendaryActionFormSet
 from encounters.models import DnD5eNPC
 
 
@@ -18,8 +19,14 @@ class Create5eNPC(LoginRequiredMixin, CreateView):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
             data["actions"] = DnD5eActionFormSet(self.request.POST)
+            data["special_abilities"] = DnD5eSpecialAbilityFormSet(self.request.POST)
+            data["legendary_actions"] = DnD5eLegendaryActionFormSet(self.request.POST)
+            data["lair_actions"] = DnD5eLairActionFormSet(self.request.POST)
         else:
             data["actions"] = DnD5eActionFormSet()
+            data["special_abilities"] = DnD5eSpecialAbilityFormSet()
+            data["legendary_actions"] = DnD5eLegendaryActionFormSet()
+            data["lair_actions"] = DnD5eLairActionFormSet()
         return data
 
     def get_success_url(self):

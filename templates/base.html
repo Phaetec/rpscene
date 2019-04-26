@@ -150,13 +150,14 @@
 
 
 <script>
-    function activate_dynamic_inline_forms(prefix_name, more_button, formset) {
+    function activate_dynamic_inline_forms(prefix_name, more_button, formset, empty_form) {
         more_button = more_button || "#add_more";
         formset = formset || "#form_set";
+        empty_form = empty_form || "#empty_form";
         $(more_button).click(function () {
             let total_forms = $('#id_' + prefix_name + '-TOTAL_FORMS');
             let form_idx = total_forms.prop("value");
-            $(formset).append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $(formset).append($(empty_form).html().replace(/__prefix__/g, form_idx));
             total_forms.val(parseInt(form_idx) + 1);
         });
     }

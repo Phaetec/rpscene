@@ -47,4 +47,8 @@ def save_successful_pair(request):
         key = HuePair(user=request.user, hue_key=hue_key)
         key.save()
 
-    return JsonResponse(data={"text": "Successfully created the pairing."})
+    return JsonResponse(data={"text": "Successfully created the pairing."}, status=200)
+
+
+def hue_scene(request):
+    return render(request, "base.html", {})

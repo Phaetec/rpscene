@@ -11,7 +11,7 @@
             <img src="{% static 'lights/hue_pairing.png' %}" alt="A finger pressing the big button on the Hue bridge">
 
             <p>Step 2: Start pairing:</p>
-            <button id="pairing-button" class="button">Pairing</button>
+            <a id="pairing-button" class="button" href="{% url 'lights:hue.pairing.save' %}">Pairing</a>
         </div>
     </div>
 {% endblock %}
@@ -69,7 +69,7 @@
                         }
                     }
                 });
-                let url = $(this).attr("href");
+                var url = $('#pairing-button').attr("href");
 
                 $.ajax({
                     url: url, // the endpoint,commonly same url
@@ -81,13 +81,19 @@
                     }, // data sent with the post request
 
                     // handle a successful response
-                    success: function () {
-                        alert("Succesfully paired, go create scenes");
+                    success: function (data) {
+                        if (data.text) {
+                            alert(data.text);
+                            window.location = "{% url 'lights:hue.scene' %}";
+                        } else {
+                            alert("Error, reload and try again.");
+                            location.reload();
+                        }
                     },
 
                     // handle a non-successful response
                     error: function (error) {
-                        var response = JSON.parse(error.responseText);
+                        let response = JSON.parse(error.responseText);
                         alert(response.text);
                         location.reload();
                     }

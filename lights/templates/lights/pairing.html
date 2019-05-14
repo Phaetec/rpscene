@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container">
-        <div class="content">
+        <div class="content has-text-centered">
             <h2>Pairing</h2>
             <p id="hue-bridge-status-text">Searching for Hue bridge</p>
             <hr>
@@ -11,7 +11,7 @@
             <img src="{% static 'lights/hue_pairing.png' %}" alt="A finger pressing the big button on the Hue bridge">
 
             <p>Step 2: Start pairing:</p>
-            <button>Pairing</button>
+            <button id="pairing-button" class="button">Pairing</button>
         </div>
     </div>
 {% endblock %}
@@ -19,32 +19,80 @@
 {% block extra_media %}
     <script src="{% static "node_modules/jshue/src/jshue.js" %}"></script>
     <script>
+        var bridge_ip = null;
+        var hue = null;
         $(document).ready(function () {
-            let hue = jsHue();
+            hue = jsHue();
             hue.discover().then(bridges => {
                 if (bridges.length === 0) {
                     console.log('No bridges found. :(');
                 } else {
                     bridges.forEach(b => console.log('Bridge found at IP address %s.', b.internalipaddress));
+                    bridge_ip = bridges[0].internalipaddress;
                     $('#hue-bridge-status-text').text("Bridge Active: " + bridges[0].internalipaddress);
-                    turn_on(bridges[0].internalipaddress);
+                    $('#pairing-button').addClass("is-info");
                 }
             }).catch(e => console.log('Error finding bridges', e));
+
+        });
+        $(document).on("click", "#pairing-button", function (e) {
+            e.preventDefault();
 
             function turn_on(bridge_ip) {
                 var bridge = hue.bridge(bridge_ip);
 
-                // create user account (requires link button to be pressed)
-                // TODO instruct the user to press the button to connect once, THEN connect
-                bridge.createUser('myApp#testdevice').then(data => {
+                bridge.createUser('rpscene#lights-scene').then(data => {
                     // extract bridge-generated username from returned data
-                    var username = data[0].success.username;
+                    if (typeof data[0].success === "undefined") {
+                        alert("Press the button first");
+                        return;
+                    }
 
-                    console.log('New username:', username);
-                    // username: NG72PspgHAMDgtXVcD5m41v23iMwvygTpTDvqqqI
-                    // instantiate user object with username
+                    console.log('New username:', data[0].success.username);
+                    save_username(data[0].success.username);
                 })
             }
-        })
+
+            turn_on(bridge_ip);
+            let csrftoken = getCookie('csrftoken');
+
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            function save_username(username) {
+                $.ajaxSetup({
+                    beforeSend: function (xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+                let url = $(this).attr("href");
+
+                $.ajax({
+                    url: url, // the endpoint,commonly same url
+                    type: "POST", // http method
+                    datatype: 'json',
+                    data: {
+                        csrfmiddlewaretoken: csrftoken,
+                        bridge_name: username
+                    }, // data sent with the post request
+
+                    // handle a successful response
+                    success: function () {
+                        alert("Succesfully paired, go create scenes");
+                    },
+
+                    // handle a non-successful response
+                    error: function (error) {
+                        var response = JSON.parse(error.responseText);
+                        alert(response.text);
+                        location.reload();
+                    }
+                });
+            }
+        });
     </script>
 {% endblock %}

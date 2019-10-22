@@ -1,7 +1,8 @@
-from django.forms import ModelForm, FloatField, inlineformset_factory
+from django.forms import FloatField, ModelForm, inlineformset_factory
 from markdownx.fields import MarkdownxFormField
 
 from locations.models import Location, RaceDistribution
+from utils.widgets.fancybulmafileinput import FancyBulmaFileInput
 
 
 class LocationForm(ModelForm):
@@ -11,6 +12,8 @@ class LocationForm(ModelForm):
     class Meta:
         model = Location
         fields = ("name", "description", "type", "ruler", "history", "map")
+
+        widgets = {'map': FancyBulmaFileInput()}
 
 
 class RaceDistributionForm(ModelForm):

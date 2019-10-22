@@ -1,0 +1,26 @@
+{% load bulma_tags %}
+<div class="field">
+    <label class="label">
+        Race Distribution / Occupancy:
+    </label>
+    <div class="control" id="form_set">
+        {{ occupancies.management_form }}
+        {% for extra_form in occupancies.forms %}
+            {{ extra_form.non_field_errors }}
+            {{ extra_form.errors }}
+            <div class="box">
+                {{ extra_form|bulma }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="field">
+    <div class="control">
+        <input type="button" value="Additional Inhabitants" id="add_more" class="button is-info">
+    </div>
+</div>
+<div id="empty_form" style="display:none">
+    <div class="box">
+        {{ occupancies.empty_form|bulma }}
+    </div>
+</div>

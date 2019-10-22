@@ -13,6 +13,11 @@ class SceneForm(ModelForm):
     encounters = MarkdownxFormField(required=False)
     rewards = MarkdownxFormField(required=False)
 
+    description.widget.attrs['class'] = 'textarea'
+    characters.widget.attrs['class'] = 'textarea'
+    encounters.widget.attrs['class'] = 'textarea'
+    rewards.widget.attrs['class'] = 'textarea'
+
     class Meta:
         model = Scene
         fields = ("name", "place", "description", "characters", "encounters", "rewards", "sound_effects")

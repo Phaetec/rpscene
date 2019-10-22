@@ -9,6 +9,9 @@ class LocationForm(ModelForm):
     description = MarkdownxFormField(required=False)
     history = MarkdownxFormField(required=False)
 
+    description.widget.attrs['class'] = 'textarea'
+    history.widget.attrs['class'] = 'textarea'
+
     class Meta:
         model = Location
         fields = ("name", "description", "type", "ruler", "history", "map")

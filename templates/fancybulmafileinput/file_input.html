@@ -1,0 +1,34 @@
+{% if widget.is_initial or widget.required %}
+    <div class="field">
+        <div class="buttons has-addons">
+            {% if widget.is_initial %}
+                <button class="button is-static">{{ widget.initial_text }}:</button>
+                <button class="button">
+                    <a href="{{ widget.value.url }}">{{ widget.uploaded_file_name }}</a>
+                </button>
+            {% endif %}
+            {% if not widget.required %}
+                <label class="button">
+                    <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+                    &nbsp;{{ widget.clear_checkbox_label }}
+                </label>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+<div class="file has-name is-fullwidth">
+    <label class="file-label">
+        <input type="{{ widget.type }}" class="file-input"
+               name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}
+               onchange="$(this).siblings('.file-name').text($(this)[0].files[0].name);">
+        <span class="file-cta">
+            <span class="file-icon">
+                <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+                {{ widget.choose_file_label }}
+            </span>
+        </span>
+        <span class="file-name">{{ widget.uploaded_file_name }}</span>
+    </label>
+</div>

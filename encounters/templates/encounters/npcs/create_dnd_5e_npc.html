@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="columns content">
+        <div class="column">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <hr>
+                <div id="form_set_actions">
+                    {{ actions.management_form }}
+                    {% for extra_form in actions.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Actions" id="add_more_actions" class="button is-info">
+                <div id="empty_form_actions" style="display:none">
+                    <table>
+                        {{ actions.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr>
+                <div id="form_set_special_abilities">
+                    {{ special_abilities.management_form }}
+                    {% for extra_form in special_abilities.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Special Abilities" id="add_more_special_abilities"
+                       class="button is-info">
+                <div id="empty_form_special_abilities" style="display:none">
+                    <table>
+                        {{ special_abilities.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr>
+                <div id="form_set_legendary_actions">
+                    {{ legendary_actions.management_form }}
+                    {% for extra_form in legendary_actions.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Legendary Actions" id="add_more_legendary_actions"
+                       class="button is-info">
+                <div id="empty_form_legendary_actions" style="display:none">
+                    <table>
+                        {{ legendary_actions.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr/>
+                <hr>
+                <div id="form_set_lair_actions">
+                    {{ lair_actions.management_form }}
+                    {% for extra_form in lair_actions.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div>
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional Lair Actions" id="add_more_lair_actions" class="button is-info">
+                <div id="empty_form_lair_actions" style="display:none">
+                    <table>
+                        {{ lair_actions.empty_form|bulma }}
+                    </table>
+                </div>
+                <hr>
+                <button type="submit" class="button is-primary">Create NPC</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_media %}
+    {{ form.media }}
+    <script>
+        $(document).ready(function () {
+            activate_dynamic_inline_forms("actions", "#add_more_actions", "#form_set_actions", "#empty_form_actions");
+            activate_dynamic_inline_forms("special_abilities", "#add_more_special_abilities",
+                "#form_set_special_abilities", "#empty_form_special_abilities");
+            activate_dynamic_inline_forms("legendary_actions", "#add_more_legendary_actions",
+                "#form_set_legendary_actions", "#empty_form_legendary_actions");
+            activate_dynamic_inline_forms("lair_actions", "#add_more_lair_actions", "#form_set_lair_actions",
+                "#empty_form_lair_actions");
+        });
+    </script>
+{% endblock %}

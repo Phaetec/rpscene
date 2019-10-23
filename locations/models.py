@@ -4,14 +4,14 @@ from django.db import models
 from user_manager.models import User
 
 
-def map_filepath(instance, filename):
+def map_filepath(instance, filename: str) -> str:
     random_uuid = uuid.uuid4()
     return 'user_{0}/{1}/{2}'.format(instance.owner.id, random_uuid, filename)
 
 
 class RaceDistribution(models.Model):
     # This needs no owner, since it is always tied to a location
-    location = models.ForeignKey("Location", on_delete=models.CASCADE, null=False)
+    location = models.ForeignKey("Location", on_delete=models.CASCADE, null=False, related_name='racedistributions')
     race = models.CharField("Race", max_length=100, null=False)
     percentage = models.FloatField("Percentage", null=False)
 

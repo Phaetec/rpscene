@@ -3,6 +3,22 @@ from django.db import models
 from user_manager.models import User
 
 
+class Encounter(models.Model):
+    """
+    Models a typical (currently combat) encounter. Currently only works with D&D 5e NPCs.
+    """
+    name = models.CharField(max_length=100, null=False, default="")
+    loot = models.TextField(null=True, max_length=10000)
+    description = models.TextField(null=True, max_length=10000)
+    # Enemies are modelled through "EncounterNPC" model
+
+
+class EncounterNPC(models.Model):
+    npc = models.ForeignKey("DnD5eNPC", null=False, on_delete=models.CASCADE, related_name="encounters")
+    encounter = models.ForeignKey("Encounter", null=False, on_delete=models.CASCADE, related_name="npcs")
+
+
+# ############# NPCs
 class NPC(models.Model):
     """
     Models generic NPCs that are versatile. If you need special fields for a certain Tabletop-RPG System,

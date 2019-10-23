@@ -40,6 +40,12 @@ class CreateEncounter(LoginRequiredMixin, CreateView):
         return reverse_lazy('encounters:create')
 
 
+class EncounterIndex(LoginRequiredMixin, ListView):
+    model = Encounter
+    template_name = "encounters/index.html"
+    context_object_name = "encounters"
+
+
 class Create5eNPC(LoginRequiredMixin, CreateView):
     """
     Create a new Dungeons & Dragons 5th Edition NPC.

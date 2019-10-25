@@ -37,7 +37,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.8/site-packages"
             - "static/node_modules"
       - run:
           command: |

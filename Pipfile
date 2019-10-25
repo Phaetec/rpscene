@@ -13,6 +13,8 @@ django-markdownx = "*"
 django-markdownify = "*"
 django-searchable-select = "*"
 whitenoise = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"

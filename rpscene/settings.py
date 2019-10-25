@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from datetime import datetime
 
-import django_heroku
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qy##3*_j*1tc_m3d$m8qtt#c+zfze#$-(p@27k!#tqu+dzmrq%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -199,4 +198,8 @@ MARKDOWNIFY_WHITELIST_TAGS = [
 ]
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+if 'I_AM_HEROKU' in os.environ:
+    # Configure Django App for Heroku.
+    import django_heroku
+
+    django_heroku.settings(locals())

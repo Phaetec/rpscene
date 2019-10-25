@@ -12,6 +12,7 @@ django-bulma = "*"
 django-markdownx = "*"
 django-markdownify = "*"
 django-searchable-select = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"

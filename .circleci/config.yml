@@ -39,7 +39,8 @@ jobs:
             - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
-            sudo apt-get install npm
+            curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt-get install -y nodejs
             cd static
             npm install
       - run:

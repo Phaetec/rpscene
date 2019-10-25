@@ -21,7 +21,7 @@ jobs:
   test:
     working_directory: ~/rpscene
     docker:
-      - image: circleci/python:3.7
+      - image: nikolaik/python-nodejs
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -37,12 +37,7 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
-      - run:
-          command: |
-            curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            cd static
-            npm install
+      - run: npm install --prefix static
       - run:
           command: |
             pipenv run python manage.py collectstatic --noinput

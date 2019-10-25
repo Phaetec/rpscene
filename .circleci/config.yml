@@ -31,6 +31,10 @@ jobs:
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run: pipenv install
+      - run:
+          command: |
+            cd static
+            npm install
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:

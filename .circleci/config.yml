@@ -39,6 +39,7 @@ jobs:
             - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
+            sudo apt-get install npm
             cd static
             npm install
       - run:

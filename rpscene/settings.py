@@ -197,5 +197,7 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'hr',
 ]
 
+STATICFILES_STORAGE = 'rpscene.storage.WhiteNoiseStaticFilesStorage'
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())

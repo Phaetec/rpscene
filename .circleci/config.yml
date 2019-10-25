@@ -31,16 +31,16 @@ jobs:
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run: pipenv install
-      - run:
-          command: |
-            cd static
-            npm install
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
+      - run:
+          command: |
+            cd static
+            npm install
       - run:
           command: |
             pipenv run python manage.py collectstatic --noinput

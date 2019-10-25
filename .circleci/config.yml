@@ -21,21 +21,24 @@ jobs:
   test:
     working_directory: ~/rpscene
     docker:
-      - image: nikolaik/python-nodejs
+      - image: circleci/python:3.8.0-node
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run: pipenv install
+      - run: npm install --prefix static
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
-      - run: npm install --prefix static
+            - "static/node_modules"
       - run:
           command: |
             pipenv run python manage.py collectstatic --noinput

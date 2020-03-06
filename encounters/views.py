@@ -4,9 +4,46 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
 
 from encounters.forms import DnD5eNPCForm, DnD5eActionFormSet, DnD5eSpecialAbilityFormSet, DnD5eLairActionFormSet, \
-    DnD5eLegendaryActionFormSet
-from encounters.models import DnD5eNPC
+    DnD5eLegendaryActionFormSet, EncounterForm, DnDEncounterFormSet
+from encounters.models import DnD5eNPC, Encounter
 from utils.mixins.UserIsOwnerMixin import UserIsOwnerMixin
+
+
+class CreateEncounter(LoginRequiredMixin, CreateView):
+    """
+    Create a new Encounter
+    """
+    model = Encounter
+    form_class = EncounterForm
+    template_name = 'encounters/create_encounter.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data["npcs"] = DnDEncounterFormSet(self.request.POST)
+        else:
+            data["npcs"] = DnDEncounterFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        with transaction.atomic():
+            form.instance.owner = self.request.user
+            self.object = form.save()
+            npcs = context["npcs"]
+            if npcs.is_valid():
+                npcs.instance = self.object
+                npcs.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('encounters:create')
+
+
+class EncounterIndex(LoginRequiredMixin, ListView):
+    model = Encounter
+    template_name = "encounters/index.html"
+    context_object_name = "encounters"
 
 
 class Create5eNPC(LoginRequiredMixin, CreateView):

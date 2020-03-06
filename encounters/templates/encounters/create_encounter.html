@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+
+{% block content %}
+    <div class="columns content">
+        <div class="column">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bulma }}
+                <hr>
+                <div id="form_set_npcs">
+                    {{ npcs.management_form }}
+                    {% for extra_form in npcs.forms %}
+                        {{ extra_form.non_field_errors }}
+                        {{ extra_form.errors }}
+                        <div class="box">
+                            {{ extra_form|bulma }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="button" value="Additional NPCs" id="add_more_npcs" class="button is-info">
+                <div id="empty_form_npcs" style="display:none">
+                    <div class="box">
+                        {{ npcs.empty_form|bulma }}
+                    </div>
+                </div>
+
+                <button type="submit" class="button is-primary">Create Encounter</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block extra_media %}
+    {{ form.media }}
+    <script>
+        $(document).ready(function () {
+            activate_dynamic_inline_forms("npcs", "#add_more_npcs", "#form_set_npcs", "#empty_form_npcs");
+        });
+    </script>
+{% endblock %}

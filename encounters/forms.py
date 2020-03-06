@@ -1,6 +1,22 @@
 from django.forms import ModelForm, inlineformset_factory
 
-from encounters.models import DnD5eNPC, DnD5eAction, DnD5eSpecialAbility, DnD5eLegendaryAction, DnD5eLairAction
+from encounters.models import DnD5eNPC, DnD5eAction, DnD5eSpecialAbility, DnD5eLegendaryAction, DnD5eLairAction, \
+    Encounter, EncounterNPC
+
+
+class EncounterForm(ModelForm):
+    class Meta:
+        model = Encounter
+        exclude = ()
+
+
+class EncounterNPCForm(ModelForm):
+    class Meta:
+        model: EncounterNPC
+        exclude = ('encounter',)
+
+
+DnDEncounterFormSet = inlineformset_factory(Encounter, EncounterNPC, form=EncounterNPCForm, fields=('npc',), extra=1)
 
 
 class DnD5eNPCForm(ModelForm):

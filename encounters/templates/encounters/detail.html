@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load markdownify %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <nav class="level">
+            <div class="level-left">
+                <a href="#" class="level-item button">
+                    <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                    <span>Edit</span>
+                </a>
+            </div>
+            <h1 class="level-item title has-text-centered">{{ encounter.name }}</h1>
+            <div class="level-right">
+                <a href="#" class="level-item button is-danger is-outlined">
+                    <span>Delete</span>
+                    <span class="icon is-small"><i class="fas fa-times"></i></span>
+                </a>
+            </div>
+        </nav>
+        <div class="columns">
+            <div class="column">
+                <div class="content has-background-light">
+                    <h3 class="subtitle has-text-centered">Description</h3>
+                    <p>{{ encounter.description|markdownify }}</p>
+                </div>
+            </div>
+        </div>
+        {% if encounter.loot %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light">
+                        <h3 class="subtitle has-text-centered">Loot</h3>
+                        <p>{{ encounter.loot|markdownify }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if encounter.npcs.exists %}
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-background-light has-text-centered">
+                        <h3 class="subtitle">NPCs</h3>
+                        {% for npc in encounter.npcs.all %}
+                            <p>{{ npc.npc.name }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

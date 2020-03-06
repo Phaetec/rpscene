@@ -17,7 +17,7 @@
         </nav>
         {% for encounter in encounters %}
             <div class="box">
-                <p class="title">{{ encounter.name }}</p>
+                <p class="title"><a href="{% url 'encounters:detail' encounter.id %}">{{ encounter.name }}</a></p>
             </div>
         {% endfor %}
 

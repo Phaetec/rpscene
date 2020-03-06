@@ -46,6 +46,13 @@ class EncounterIndex(LoginRequiredMixin, ListView):
     context_object_name = "encounters"
 
 
+class EncounterDetail(LoginRequiredMixin, DetailView):
+    model = Encounter
+    pk_url_kwarg = 'encounter_id'
+    context_object_name = 'encounter'
+    template_name = 'encounters/detail.html'
+
+
 class Create5eNPC(LoginRequiredMixin, CreateView):
     """
     Create a new Dungeons & Dragons 5th Edition NPC.

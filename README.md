@@ -7,12 +7,12 @@ Additionally npm is used for CSS and JS frameworks.
 To setup the virtual environment and install all required dependencies within this environment, simply run
 ```
 $ pipenv install
-$ npm install --prefix static
+$ npm install
 ```
 
 To generate CSS files from Sass, run
 ```
-$ sass --update static/css:static/css
+$ npm rum sass
 ```
 
 To run the Django server within the virtual environment, run

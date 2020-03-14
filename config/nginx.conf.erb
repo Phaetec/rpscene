@@ -47,12 +47,8 @@ http {
       proxy_pass http://app_server;
     }
 
-    location /static {
-      root /app;
-    }
-
-    location /media {
-      root /app;
+    location /static/ {
+      root /app/staticfiles/;
     }
   }
 }

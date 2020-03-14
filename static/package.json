@@ -4,7 +4,8 @@
   "description": "## How to run",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --update css:css"
   },
   "repository": {
     "type": "git",

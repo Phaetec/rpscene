@@ -1,2 +1,2 @@
 release: npm run --prefix static sass
-web: gunicorn rpscene.wsgi
+web: bin/start-nginx gunicorn -b unix:///tmp/rpscene rpscene.wsgi

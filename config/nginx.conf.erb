@@ -27,10 +27,6 @@ http {
   # Must read the body in 5 seconds.
   client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
-  # Enable basic authentication
-  auth_basic "rpscene";
-  auth_basic_user_file /app/.htpasswd;
-
   upstream app_server {
     server unix:/tmp/rpscene.socket fail_timeout=0;
   }
@@ -40,6 +36,10 @@ http {
     server_name _;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+
+    # Enable basic authentication
+    auth_basic "rpscene";
+    auth_basic_user_file /app/.htpasswd;
 
     location / {
       proxy_set_header Host $http_host;

@@ -18,10 +18,10 @@
     "default": {
         "asgiref": {
             "hashes": [
-                "sha256:8036f90603c54e93521e5777b2b9a39ba1bad05773fcf2d208f0299d1df58ce5",
-                "sha256:9ca8b952a0a9afa61d30aa6d3d9b570bb3fd6bafcf7ec9e6bed43b936133db1c"
+                "sha256:7ea1922cfd63c4ac7687069f8bb0e7768ab9b7fc78ff227577d4240b52d6cb7a",
+                "sha256:f803d8b4962cc338d48a72fa498c52f913b160eb16712e2ecdf2a81904daead9"
             ],
-            "version": "==3.2.7"
+            "version": "==3.2.9"
         },
         "bleach": {
             "hashes": [
@@ -55,11 +55,11 @@
         },
         "django-bulma": {
             "hashes": [
-                "sha256:c38549ee6f510b8b37235cb284e17a1562ccb0c0c14ac079b6696aefbbcd6323",
-                "sha256:daefbb6a210c6b98944a7b069f7007360711fc1e6c562c51839fd51c52be6478"
+                "sha256:27b1ba2491e407f87e35e9be685c26cdd6b214eea8ea9dcf4e30f215e85512b6",
+                "sha256:f8c08ba8612556785dc20d0f56f7ac9784b3b0c59a996c4abec1a04372bb35c8"
             ],
             "index": "pypi",
-            "version": "==0.7.1"
+            "version": "==0.8.0"
         },
         "django-heroku": {
             "hashes": [

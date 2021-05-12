@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Wegi/rpscene#readme",
   "dependencies": {
     "bulma": "^0.7.4",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-colorschemes": "^0.3.0",
     "jquery": "^3.5.0",
     "sass": "^1.26.3"
